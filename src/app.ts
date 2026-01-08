@@ -21,6 +21,7 @@ import reindexService from './services/search/reindex.service';
 // Import routes
 import { authRoutes } from './routes/auth';
 import { userRoutes } from './routes/users';
+import { uploadRoutes } from './routes/upload';
 
 const app = express();
 
@@ -108,6 +109,7 @@ app.use('/uploads', express.static('uploads'));
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Setup Swagger documentation TRƯỚC khi định nghĩa 404 handler
 setupSwagger(app);
