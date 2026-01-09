@@ -1468,3 +1468,326 @@
 2026-01-09T05:23:33.097Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=3&limit=10
 2026-01-09T05:23:34.601Z [INFO]: CORS check - origin: none method: POST path: /api/posts/69608f675173c2b78185a279/like
 2026-01-09T05:23:36.200Z [INFO]: CORS check - origin: none method: POST path: /api/posts/696087d336ba3d9f6cf1621f/like
+2026-01-08T15:13:47.171Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-08T15:13:47.175Z [INFO]: 📡 URI: mongodb://localhost:27017/dacn_fallback
+2026-01-08T15:13:47.202Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-08T15:13:47.208Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-08T15:13:47.208Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-08T15:13:47.209Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-08T15:13:47.210Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-08T15:13:47.210Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-08T15:13:47.245Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-08T15:13:47.248Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-08T15:13:47.248Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-08T15:13:47.249Z [INFO]: 🌐 Host: localhost:27017
+2026-01-08T15:13:47.249Z [INFO]: ✅ MongoDB connected successfully
+2026-01-08T15:28:09.362Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-08T15:28:09.365Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-08T15:28:09.380Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-08T15:28:09.389Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-08T15:28:09.390Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-08T15:28:09.391Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-08T15:28:09.392Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-08T15:28:09.392Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-08T15:28:19.503Z [INFO]: 📴 Mongoose disconnected from MongoDB
+2026-01-08T15:28:19.506Z [ERROR]: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (D:\LTMB\social-app\node_modules\mongoose\lib\connection.js:1165:11)
+    at NativeConnection.openUri (D:\LTMB\social-app\node_modules\mongoose\lib\connection.js:1096:11)
+    at DatabaseConnection.connect (D:\LTMB\social-app\src\shared\database\connection.ts:36:7)
+2026-01-08T15:28:19.512Z [WARN]: ⚠️ Development: Continuing without MongoDB
+2026-01-08T15:28:19.512Z [WARN]: 🔧 API will work with mock data where possible
+2026-01-08T15:28:19.513Z [INFO]: ✅ MongoDB connected successfully
+2026-01-08T15:28:19.519Z [ERROR]: MongoServerSelectionError: 585C0000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+    at Topology.selectServer (D:\LTMB\social-app\node_modules\mongodb\src\sdam\topology.ts:635:30)
+    at Topology._connect (D:\LTMB\social-app\node_modules\mongodb\src\sdam\topology.ts:467:22)
+    at Topology.connect (D:\LTMB\social-app\node_modules\mongodb\src\sdam\topology.ts:404:7)
+    at topologyConnect (D:\LTMB\social-app\node_modules\mongodb\src\mongo_client.ts:695:9)
+    at MongoClient._connect (D:\LTMB\social-app\node_modules\mongodb\src\mongo_client.ts:707:7)
+    at MongoClient.connect (D:\LTMB\social-app\node_modules\mongodb\src\mongo_client.ts:619:7)
+    at NativeConnection.createClient (D:\LTMB\social-app\node_modules\mongoose\lib\drivers\node-mongodb-native\connection.js:351:3)
+    at NativeConnection.openUri (D:\LTMB\social-app\node_modules\mongoose\lib\connection.js:1094:5)
+    at DatabaseConnection.connect (D:\LTMB\social-app\src\shared\database\connection.ts:36:7)
+2026-01-08T15:54:03.214Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-08T15:54:03.219Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-08T15:54:03.238Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-08T15:54:03.248Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-08T15:54:03.249Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-08T15:54:03.250Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-08T15:54:03.251Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-08T15:54:03.251Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-08T15:54:04.319Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-08T15:54:04.322Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-08T15:54:04.322Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-08T15:54:04.323Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-08T15:54:04.323Z [INFO]: ✅ MongoDB connected successfully
+2026-01-08T16:02:41.333Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-08T16:02:41.342Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-08T16:02:41.361Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-08T16:02:41.380Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-08T16:02:41.384Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-08T16:02:41.386Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-08T16:02:41.387Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-08T16:02:41.388Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-08T16:02:42.279Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-08T16:02:42.283Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-08T16:02:42.283Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-08T16:02:42.284Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-08T16:02:42.284Z [INFO]: ✅ MongoDB connected successfully
+2026-01-08T16:13:43.063Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:18:48.654Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-08T16:18:48.661Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-08T16:18:48.712Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-08T16:18:48.733Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-08T16:18:48.737Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-08T16:18:48.742Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-08T16:18:48.752Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-08T16:18:48.753Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-08T16:18:49.721Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-08T16:18:49.723Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-08T16:18:49.724Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-08T16:18:49.724Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-01.egm9jot.mongodb.net:27017
+2026-01-08T16:18:49.725Z [INFO]: ✅ MongoDB connected successfully
+2026-01-08T16:19:31.684Z [INFO]: CORS check - origin: none method: GET path: /health
+2026-01-08T16:19:33.646Z [INFO]: CORS check - origin: none method: GET path: /favicon.ico
+2026-01-08T16:23:35.263Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:25:53.328Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:26:17.516Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:40:45.988Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:41:09.734Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-08T16:41:09.738Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-08T16:41:09.752Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-08T16:41:09.760Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-08T16:41:09.761Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-08T16:41:09.762Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-08T16:41:09.762Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-08T16:41:09.762Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-08T16:41:10.568Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-08T16:41:10.570Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-08T16:41:10.571Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-08T16:41:10.571Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-08T16:41:10.572Z [INFO]: ✅ MongoDB connected successfully
+2026-01-08T16:41:48.668Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:43:29.345Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:43:30.434Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:43:44.783Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-08T16:43:44.787Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-08T16:43:44.809Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-08T16:43:44.819Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-08T16:43:44.820Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-08T16:43:44.820Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-08T16:43:44.821Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-08T16:43:44.822Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-08T16:43:45.792Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-08T16:43:45.794Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-08T16:43:45.795Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-08T16:43:45.795Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-08T16:43:45.796Z [INFO]: ✅ MongoDB connected successfully
+2026-01-08T16:44:15.283Z [INFO]: CORS check - origin: none method: POST path: /api/auth/register
+2026-01-08T16:44:15.859Z [INFO]: New user registered: quangnguyen31072004@gmail.com
+2026-01-08T16:44:16.325Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:44:16.330Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:44:42.644Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate
+2026-01-08T16:44:57.283Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:44:57.285Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:45:38.065Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:45:38.070Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:45:51.969Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate
+2026-01-08T16:45:52.557Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:45:52.560Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:45:54.015Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:45:54.019Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:49:46.708Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-08T16:49:47.273Z [INFO]: User logged in: quangnguyen31072004@gmail.com
+2026-01-08T16:49:47.722Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:49:47.727Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:49:50.325Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate
+2026-01-08T16:49:50.945Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:49:50.948Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:05.846Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:05.852Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:07.328Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:07.332Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:08.302Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:08.304Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:14.520Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate
+2026-01-08T16:53:15.931Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:15.938Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:16.776Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:16.781Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:16.999Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:17.004Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:17.181Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:17.183Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-08T16:53:56.433Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-08T16:53:56.437Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T03:24:51.210Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T03:24:51.215Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T03:24:51.243Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T03:24:51.260Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T03:24:51.261Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T03:24:51.261Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T03:24:51.262Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T03:24:51.263Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T03:24:52.356Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T03:24:52.359Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T03:24:52.360Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T03:24:52.361Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T03:24:52.362Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T03:36:06.794Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T03:36:25.309Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T03:36:25.813Z [INFO]: User logged in: quangnguyen31072004@gmail.com
+2026-01-09T03:36:26.120Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T03:36:26.125Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T03:37:32.050Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T03:37:32.551Z [INFO]: User logged in: quangnguyen31072004@gmail.com
+2026-01-09T03:37:32.957Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T03:37:32.960Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T03:37:37.452Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate
+2026-01-09T03:37:38.680Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T03:37:38.683Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:05:50.454Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T04:05:50.949Z [INFO]: User logged in: quangnguyen31072004@gmail.com
+2026-01-09T04:05:51.407Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:05:51.409Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:06:02.269Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:06:02.282Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:06:02.722Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:06:02.724Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:06:10.337Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate
+2026-01-09T04:06:16.695Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:06:16.706Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:21:15.484Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:21:15.488Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:21:15.503Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:21:15.513Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:21:15.513Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:21:15.514Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:21:15.515Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:21:15.516Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:21:16.514Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:21:16.517Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:21:16.517Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:21:16.518Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-09T04:21:16.518Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:21:25.659Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:21:25.662Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:21:25.677Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:21:25.686Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:21:25.687Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:21:25.688Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:21:25.689Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:21:25.690Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:21:26.593Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:21:26.595Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:21:26.596Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:21:26.596Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T04:21:26.597Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:21:29.839Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:21:29.842Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:21:29.858Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:21:29.870Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:21:29.870Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:21:29.871Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:21:29.872Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:21:29.873Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:21:30.613Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:21:30.615Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:21:30.616Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:21:30.616Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-09T04:21:30.617Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:23:20.656Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:23:20.665Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:23:20.702Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:23:20.718Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:23:20.719Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:23:20.720Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:23:20.722Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:23:20.722Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:23:21.623Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:23:21.625Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:23:21.626Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:23:21.626Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-01.egm9jot.mongodb.net:27017
+2026-01-09T04:23:21.627Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:24:06.536Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:24:06.541Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:24:06.563Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:24:06.572Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:24:06.574Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:24:06.575Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:24:06.576Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:24:06.577Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:24:07.429Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:24:07.432Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:24:07.433Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:24:07.433Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T04:24:07.434Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:26:22.831Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:26:22.840Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:26:55.341Z [INFO]: CORS check - origin: none method: GET path: /api/users/search?q=thng&page=1&limit=20
+2026-01-09T04:27:06.118Z [INFO]: CORS check - origin: none method: GET path: /api/users/search?q=thng&page=1&limit=20
+2026-01-09T04:27:13.516Z [INFO]: CORS check - origin: none method: GET path: /api/users/search?q=thang&page=1&limit=20
+2026-01-09T04:27:47.056Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:27:47.061Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:27:47.080Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:27:47.088Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:27:47.089Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:27:47.089Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:27:47.090Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:27:47.091Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:27:47.960Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:27:47.963Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:27:47.963Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:27:47.963Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T04:27:47.964Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:27:50.611Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:27:50.615Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:27:50.635Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:27:50.645Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:27:50.646Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:27:50.647Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:27:50.648Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:27:50.649Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:27:51.341Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:27:51.344Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:27:51.344Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:27:51.345Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T04:27:51.345Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:27:59.897Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:27:59.901Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:27:59.917Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:27:59.926Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:27:59.927Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:27:59.927Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:27:59.928Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:27:59.929Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:28:00.777Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:28:00.779Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:28:00.780Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:28:00.780Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-09T04:28:00.781Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:28:02.978Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:28:02.982Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:28:03.000Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:28:03.012Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.186.199.65:5000
+2026-01-09T04:28:03.013Z [INFO]: 📊 Health check: http://26.186.199.65:5000/health
+2026-01-09T04:28:03.013Z [INFO]: 📖 API docs: http://26.186.199.65:5000/api
+2026-01-09T04:28:03.014Z [INFO]: 📚 Swagger docs: http://26.186.199.65:5000/api/docs
+2026-01-09T04:28:03.015Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:28:03.796Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:28:03.799Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:28:03.800Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:28:03.801Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-09T04:28:03.802Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:30:04.459Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:30:04.470Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:30:24.893Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:30:24.896Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:32:35.070Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:32:35.084Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:33:16.404Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:33:16.418Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T04:33:35.389Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-all-product
+2026-01-09T04:33:35.401Z [INFO]: CORS check - origin: none method: GET path: /api/Product/get-slide-product
+2026-01-09T05:03:59.799Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate
+2026-01-09T05:12:13.356Z [INFO]: CORS check - origin: none method: POST path: /chatHub/negotiate

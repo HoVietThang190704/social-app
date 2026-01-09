@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { GetUsersUseCase } from '../../domain/usecases/user/GetUsers.usecase';
+import { UserMapper } from '../dto/user/User.dto';
 import { logger } from '../../shared/utils/logger';
 
 export class UserController {
@@ -8,7 +10,8 @@ export class UserController {
     private resetPasswordUseCase: any,
     private changePasswordUseCase: any,
     private updateUserAvatarUseCase: any,
-    private lockUserUseCase: any
+    private lockUserUseCase: any,
+    private getUsersUseCase: GetUsersUseCase
   ) {}
 
   async getProfile(req: Request, res: Response) {
@@ -90,6 +93,60 @@ export class UserController {
     } catch (err: any) {
       logger.error('UserController.changePassword error:', err);
       res.status(500).json({ success: false, message: 'Internal error' });
+    }
+  }
+
+  async searchUsers(req: Request, res: Response) {
+    try {
+      const query = typeof req.query.q === 'string'
+        ? req.query.q
+        : (typeof req.query.search === 'string' ? req.query.search : '');
+
+      const page = Math.max(Number(req.query.page || 1), 1);
+      const limit = Math.min(Math.max(Number(req.query.limit || 10), 1), 50);
+
+      if (!query || query.trim().length < 2) {
+        return res.json({
+          success: true,
+          message: 'Vui lòng nhập tối thiểu 2 ký tự để tìm kiếm',
+          data: {
+            users: [],
+            pagination: {
+              page,
+              limit,
+              total: 0,
+              totalPages: 0
+            }
+          }
+        });
+      }
+
+      const result = await this.getUsersUseCase.execute({
+        search: query,
+        page,
+        limit,
+        sortBy: 'userName',
+        sortOrder: 'asc'
+      });
+
+      const users = result.users.map((u: any) => UserMapper.toResponseDto(u));
+
+      res.json({
+        success: true,
+        message: 'Tìm kiếm người dùng thành công',
+        data: {
+          users,
+          pagination: {
+            page: result.page,
+            limit: result.limit,
+            total: result.total,
+            totalPages: Math.ceil((result.total || 0) / result.limit)
+          }
+        }
+      });
+    } catch (err: any) {
+      logger.error('UserController.searchUsers error:', err);
+      res.status(500).json({ success: false, message: 'Lỗi server khi tìm kiếm người dùng' });
     }
   }
 }
