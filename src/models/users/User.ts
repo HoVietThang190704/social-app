@@ -7,10 +7,11 @@ export interface IUser extends Document {
   password?: string;
   userName: string;
   avatar?: string;
+  cloudinaryPublicId?: string;
   bio?: string;
   phone?: string;
   date_of_birth?: Date;
-  address?: Types.ObjectId | any;
+  address?: any;
   role: string;
   isVerified: boolean;
   locked: boolean;
@@ -49,6 +50,9 @@ const UserSchema: Schema = new Schema({
   avatar: {
     type: String
   },
+  cloudinaryPublicId: {
+    type: String
+  },
   bio: {
     type: String,
     maxlength: 2000
@@ -61,8 +65,7 @@ const UserSchema: Schema = new Schema({
     type: Date
   },
   address: {
-    type: Schema.Types.ObjectId,
-    ref: 'Address'
+    type: Schema.Types.Mixed,
   },
   role: {
     type: String,

@@ -18,23 +18,23 @@ export class UserController {
     try {
       const userId = req.user?.userId;
       if (!userId) return res.status(401).json({ success: false, message: 'Unauthorized' });
-      const user = await this.getUserProfileUseCase.execute({ userId });
+      const user = await this.getUserProfileUseCase.execute(userId);
       res.json({ success: true, data: user });
     } catch (err: any) {
       logger.error('UserController.getProfile error:', err);
-      res.status(500).json({ success: false, message: 'Internal error' });
+      res.status(500).json({ success: false, message: err?.message || 'Internal error' });
     }
   }
 
   async getPublicProfile(req: Request, res: Response) {
     try {
       const userId = req.params.userId;
-      const user = await this.getUserProfileUseCase.execute({ userId, public: true });
+      const user = await this.getUserProfileUseCase.execute(userId);
       if (!user) return res.status(404).json({ success: false, message: 'Not found' });
       res.json({ success: true, data: user });
     } catch (err: any) {
       logger.error('UserController.getPublicProfile error:', err);
-      res.status(500).json({ success: false, message: 'Internal error' });
+      res.status(500).json({ success: false, message: err?.message || 'Internal error' });
     }
   }
 
@@ -43,11 +43,20 @@ export class UserController {
       const userId = req.user?.userId;
       if (!userId) return res.status(401).json({ success: false, message: 'Unauthorized' });
       const data = req.body;
-      const updated = await this.updateUserProfileUseCase.execute({ userId, data });
+      const updated = await this.updateUserProfileUseCase.execute({
+        userId,
+        userName: data.userName,
+        phone: data.phone,
+        avatar: data.avatar,
+        role: data.role,
+        isVerified: data.isVerified,
+        address: data.address,
+        dateOfBirth: data.date_of_birth ? new Date(data.date_of_birth) : undefined,
+      });
       res.json({ success: true, data: updated });
     } catch (err: any) {
       logger.error('UserController.updateProfile error:', err);
-      res.status(500).json({ success: false, message: 'Internal error' });
+      res.status(500).json({ success: false, message: err?.message || 'Internal error' });
     }
   }
 
@@ -56,11 +65,12 @@ export class UserController {
       const userId = req.user?.userId;
       if (!userId) return res.status(401).json({ success: false, message: 'Unauthorized' });
       const file = req.file;
-      const result = await this.updateUserAvatarUseCase.execute({ userId, file });
+      if (!file) return res.status(400).json({ success: false, message: 'File không hợp lệ' });
+      const result = await this.updateUserAvatarUseCase.execute(userId, file);
       res.json({ success: true, data: result });
     } catch (err: any) {
       logger.error('UserController.uploadAvatar error:', err);
-      res.status(500).json({ success: false, message: 'Internal error' });
+      res.status(500).json({ success: false, message: err?.message || 'Internal error' });
     }
   }
 
@@ -88,11 +98,14 @@ export class UserController {
 
   async changePassword(req: Request, res: Response) {
     try {
-      await this.changePasswordUseCase.execute(req);
+      const userId = req.user?.userId;
+      if (!userId) return res.status(401).json({ success: false, message: 'Unauthorized' });
+      const { currentPassword, newPassword } = req.body || {};
+      await this.changePasswordUseCase.execute(userId, currentPassword, newPassword);
       res.json({ success: true, message: 'Password changed' });
     } catch (err: any) {
       logger.error('UserController.changePassword error:', err);
-      res.status(500).json({ success: false, message: 'Internal error' });
+      res.status(500).json({ success: false, message: err?.message || 'Internal error' });
     }
   }
 
