@@ -1,6 +1,9 @@
+import { CommentEntity } from '../entities/Comment.entity';
+
 export interface CommentFilters {
   postId?: string;
   userId?: string;
+  authorId?: string;
   parentCommentId?: string | null;
   level?: number;
   hasImages?: boolean;
@@ -20,7 +23,7 @@ export interface CommentPagination {
 }
 
 export interface PaginatedComments {
-  comments: any[];
+  comments: CommentEntity[];
   total: number;
   page: number;
   limit: number;
@@ -29,9 +32,16 @@ export interface PaginatedComments {
 }
 
 export interface ICommentRepository {
-  create(comment: any): Promise<any>;
-  findById(id: string): Promise<any | null>;
+  create(comment: Omit<CommentEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<CommentEntity>;
+  findById(id: string): Promise<CommentEntity | null>;
   findAll(filters?: CommentFilters, sorting?: CommentSorting, pagination?: CommentPagination): Promise<PaginatedComments>;
-  findByPost(postId: string, options?: any): Promise<{ items: any[]; total: number }>;
+  findByPostId(postId: string, pagination?: CommentPagination): Promise<PaginatedComments>;
+  findReplies(parentCommentId: string, pagination?: CommentPagination): Promise<PaginatedComments>;
+  findThread(parentCommentId: string): Promise<CommentEntity[]>;
+  findByPostIdWithNested(postId: string, pagination?: CommentPagination): Promise<PaginatedComments>;
+  toggleLike(commentId: string, userId: string): Promise<{ liked: boolean; likesCount: number }>;
+  incrementRepliesCount(commentId: string): Promise<CommentEntity | null>;
+  decrementRepliesCount(commentId: string): Promise<CommentEntity | null>;
+  deleteWithReplies(commentId: string): Promise<number>;
   deleteByPostId(postId: string): Promise<void>;
 }

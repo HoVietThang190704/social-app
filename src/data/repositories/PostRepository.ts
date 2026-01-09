@@ -440,6 +440,25 @@ export class PostRepository implements IPostRepository {
     }
   }
 
+  async adjustCommentsCount(postId: string, delta: number): Promise<PostEntity | null> {
+    try {
+      const updated = await PostModel.findByIdAndUpdate(
+        postId,
+        { $inc: { commentsCount: delta } },
+        { new: true }
+      )
+      .populate('userId', 'userName email avatar')
+      .lean();
+
+      if (!updated) return null;
+
+      return this.toDomainEntity(updated as unknown as IPost);
+    } catch (error) {
+      logger.error('Error adjusting comments count:', error);
+      throw new Error('Lỗi khi cập nhật số bình luận');
+    }
+  }
+
   async incrementSharesCount(postId: string): Promise<PostEntity | null> {
     try {
       const updated = await PostModel.findByIdAndUpdate(
