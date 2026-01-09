@@ -70,6 +70,7 @@ export interface IPostRepository {
   incrementCommentsCount(postId: string): Promise<PostEntity | null>;
 
   decrementCommentsCount(postId: string): Promise<PostEntity | null>;
+  adjustCommentsCount(postId: string, delta: number): Promise<PostEntity | null>;
 
   incrementSharesCount(postId: string): Promise<PostEntity | null>;
 

@@ -15,7 +15,7 @@ import {
   SharePostUseCase,
   GetPostShareInfoUseCase
 } from '../domain/usecases/post';
-import { authMiddleware } from '../shared/middleware/auth.middleware';
+import { authMiddleware, optionalAuthMiddleware } from '../shared/middleware/auth.middleware';
 import { validate } from '../shared/middleware/validate';
 import { createPostSchema, updatePostSchema, sharePostSchema } from '../shared/validation/post.schema';
 import { elasticsearchService } from '../services/search';
@@ -106,7 +106,7 @@ router.get('/feed/user', authMiddleware, (req, res) => postController.getFeed(re
  *       200:
  *         description: Thành công
  */
-router.get('/feed/public', (req, res) => postController.getPublicPosts(req, res));
+router.get('/feed/public', optionalAuthMiddleware, (req, res) => postController.getPublicPosts(req, res));
 
 /**
  * @swagger
@@ -135,7 +135,7 @@ router.get('/feed/public', (req, res) => postController.getPublicPosts(req, res)
  *       200:
  *         description: Thành công
  */
-router.get('/search/query', (req, res) => postController.searchPosts(req, res));
+router.get('/search/query', optionalAuthMiddleware, (req, res) => postController.searchPosts(req, res));
 
 /**
  * @swagger
@@ -154,7 +154,7 @@ router.get('/search/query', (req, res) => postController.searchPosts(req, res));
  *       200:
  *         description: Thành công
  */
-router.get('/trending/now', (req, res) => postController.getTrendingPosts(req, res));
+router.get('/trending/now', optionalAuthMiddleware, (req, res) => postController.getTrendingPosts(req, res));
 
 /**
  * @swagger
@@ -183,7 +183,7 @@ router.get('/trending/now', (req, res) => postController.getTrendingPosts(req, r
  *       200:
  *         description: Thành công
  */
-router.get('/user/:userId', (req, res) => postController.getUserPosts(req, res));
+router.get('/user/:userId', optionalAuthMiddleware, (req, res) => postController.getUserPosts(req, res));
 
 /**
  * @swagger
@@ -253,7 +253,7 @@ router.post('/', authMiddleware, validate(createPostSchema), (req, res) => postC
  *       400:
  *         description: Không thể tạo dữ liệu chia sẻ
  */
-router.get('/:postId/share-info', (req, res) => postController.getShareInfo(req, res));
+router.get('/:postId/share-info', optionalAuthMiddleware, (req, res) => postController.getShareInfo(req, res));
 
 /**
  * @swagger
@@ -275,7 +275,7 @@ router.get('/:postId/share-info', (req, res) => postController.getShareInfo(req,
  *       404:
  *         description: Không tìm thấy bài post
  */
-router.get('/:postId', (req, res) => postController.getPostById(req, res));
+router.get('/:postId', optionalAuthMiddleware, (req, res) => postController.getPostById(req, res));
 
 /**
  * @swagger

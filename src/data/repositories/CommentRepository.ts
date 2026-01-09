@@ -21,14 +21,14 @@ export class CommentRepository implements ICommentRepository {
     const entity = new CommentEntity({
       id: String(model._id),
       postId: String(model.postId),
-      userId: String(model.userId?._id || model.userId),
+      userId: String(model.authorId?._id || model.authorId || model.userId),
       content: model.content,
       images: model.images,
       cloudinaryPublicIds: model.cloudinaryPublicIds,
       parentCommentId: model.parentCommentId ? String(model.parentCommentId) : undefined,
       level: model.level,
       mentionedUserId: model.mentionedUserId ? String(model.mentionedUserId) : undefined,
-      likes: model.likes.map((id: any) => String(id)),
+      likes: (model.likes || []).map((id: any) => String(id)),
       likesCount: model.likesCount,
       repliesCount: model.repliesCount,
       isEdited: model.isEdited,
@@ -38,12 +38,12 @@ export class CommentRepository implements ICommentRepository {
     });
 
     // Attach populated user data for DTO mapping
-    if (model.userId && typeof model.userId === 'object') {
+    if (model.authorId && typeof model.authorId === 'object') {
       (entity as any).user = {
-        id: String(model.userId._id),
-        userName: model.userId.userName,
-        email: model.userId.email,
-        avatar: model.userId.avatar
+        id: String(model.authorId._id),
+        userName: model.authorId.userName,
+        email: model.authorId.email,
+        avatar: model.authorId.avatar
       };
     }
 
@@ -69,8 +69,9 @@ export class CommentRepository implements ICommentRepository {
       filter.postId = filters.postId;
     }
 
-    if (filters.userId) {
-      filter.userId = filters.userId;
+    const authorId = filters.authorId || filters.userId;
+    if (authorId) {
+      filter.authorId = authorId;
     }
 
     if (filters.parentCommentId !== undefined) {
@@ -120,7 +121,7 @@ export class CommentRepository implements ICommentRepository {
   async findById(id: string): Promise<CommentEntity | null> {
     try {
       const comment = await CommentModel.findById(id)
-        .populate('userId', 'userName email avatar')
+        .populate('authorId', 'userName email avatar')
         .populate('mentionedUserId', 'userName email avatar')
         .lean();
 
@@ -150,7 +151,7 @@ export class CommentRepository implements ICommentRepository {
           .sort(sort)
           .skip(skip)
           .limit(limit)
-          .populate('userId', 'userName email avatar')
+          .populate('authorId', 'userName email avatar')
           .populate('mentionedUserId', 'userName email avatar')
           .lean(),
         CommentModel.countDocuments(filter)
@@ -174,11 +175,18 @@ export class CommentRepository implements ICommentRepository {
 
   async create(commentData: Omit<CommentEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<CommentEntity> {
     try {
-      const comment = new CommentModel(commentData);
+      const payload: any = {
+        ...commentData,
+        authorId: (commentData as any).authorId || (commentData as any).userId
+      };
+
+      delete payload.userId;
+
+      const comment = new CommentModel(payload);
       const saved = await comment.save();
       
       const populated = await CommentModel.findById(saved._id)
-        .populate('userId', 'userName email avatar')
+        .populate('authorId', 'userName email avatar')
         .populate('mentionedUserId', 'userName email avatar')
         .lean();
 
@@ -196,7 +204,7 @@ export class CommentRepository implements ICommentRepository {
         { $set: { ...data, updatedAt: new Date() } },
         { new: true, runValidators: true }
       )
-      .populate('userId', 'userName email avatar')
+      .populate('authorId', 'userName email avatar')
       .populate('mentionedUserId', 'userName email avatar')
       .lean();
 
@@ -229,7 +237,7 @@ export class CommentRepository implements ICommentRepository {
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate('userId', 'userName email avatar')
+        .populate('authorId', 'userName email avatar')
         .lean(),
       CommentModel.countDocuments({ postId })
     ]);
@@ -285,7 +293,7 @@ export class CommentRepository implements ICommentRepository {
         ]
       })
       .sort({ createdAt: 1 })
-      .populate('userId', 'userName email avatar')
+      .populate('authorId', 'userName email avatar')
       .lean();
 
   return comments.map(comment => this.toDomainEntity(comment as unknown as IComment));
@@ -297,7 +305,7 @@ export class CommentRepository implements ICommentRepository {
 
   async findByUserId(userId: string, pagination?: CommentPagination): Promise<PaginatedComments> {
     return this.findAll(
-      { userId },
+      { authorId: userId },
       { sortBy: 'createdAt', order: 'desc' },
       pagination
     );
@@ -343,7 +351,7 @@ export class CommentRepository implements ICommentRepository {
         },
         { new: true }
       )
-      .populate('userId', 'userName email avatar')
+      .populate('authorId', 'userName email avatar')
       .lean();
 
       if (!updated) return null;
@@ -365,7 +373,7 @@ export class CommentRepository implements ICommentRepository {
         },
         { new: true }
       )
-      .populate('userId', 'userName email avatar')
+      .populate('authorId', 'userName email avatar')
       .lean();
 
       if (!updated) return null;
@@ -384,7 +392,7 @@ export class CommentRepository implements ICommentRepository {
         { $inc: { repliesCount: 1 } },
         { new: true }
       )
-      .populate('userId', 'userName email avatar')
+      .populate('authorId', 'userName email avatar')
       .lean();
 
       if (!updated) return null;
@@ -403,7 +411,7 @@ export class CommentRepository implements ICommentRepository {
         { $inc: { repliesCount: -1 } },
         { new: true }
       )
-      .populate('userId', 'userName email avatar')
+      .populate('authorId', 'userName email avatar')
       .lean();
 
       if (!updated) return null;
@@ -431,7 +439,7 @@ export class CommentRepository implements ICommentRepository {
           .sort({ createdAt: 1 })
           .skip(skip)
           .limit(limit)
-          .populate('userId', 'userName email avatar')
+          .populate('authorId', 'userName email avatar')
           .populate('mentionedUserId', 'userName email avatar')
           .lean(),
         CommentModel.countDocuments({ postId, level: 0, parentCommentId: null })
@@ -440,7 +448,7 @@ export class CommentRepository implements ICommentRepository {
       // Get all replies for this post (all depths). We'll assemble the nested tree in the presentation layer.
       const replies = await CommentModel.find({ postId, parentCommentId: { $ne: null } })
         .sort({ createdAt: 1 })
-        .populate('userId', 'userName email avatar')
+        .populate('authorId', 'userName email avatar')
         .populate('mentionedUserId', 'userName email avatar')
         .lean();
 
@@ -476,7 +484,7 @@ export class CommentRepository implements ICommentRepository {
       const comments = await CommentModel.find({ postId })
         .sort({ createdAt: -1 })
         .limit(limit)
-        .populate('userId', 'userName email avatar')
+        .populate('authorId', 'userName email avatar')
         .lean();
 
   return comments.map(comment => this.toDomainEntity(comment as unknown as IComment));
@@ -491,7 +499,7 @@ export class CommentRepository implements ICommentRepository {
       const comments = await CommentModel.find({ postId })
         .sort({ likesCount: -1 })
         .limit(limit)
-        .populate('userId', 'userName email avatar')
+        .populate('authorId', 'userName email avatar')
         .lean();
 
   return comments.map(comment => this.toDomainEntity(comment as unknown as IComment));
