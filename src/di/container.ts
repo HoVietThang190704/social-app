@@ -43,6 +43,7 @@ const changePasswordUseCase = new ChangePasswordUseCase(userRepository);
 const updateUserAvatarUseCase = new UpdateUserAvatarUseCase(userRepository);
 const lockUserUseCase = new LockUserUseCase(userRepository);
 const getUsersByIdsUseCase = new GetUsersByIdsUseCase(userRepository);
+const getUsersUseCase = new GetUsersUseCase(userRepository);
 
 // Address Use Cases
 const getUserAddressesUseCase = new GetUserAddressesUseCase(addressRepository);
@@ -58,11 +59,11 @@ export const userController = new UserController(
   resetPasswordUseCase,
   changePasswordUseCase,
   updateUserAvatarUseCase,
-  lockUserUseCase
+  lockUserUseCase,
+  getUsersUseCase
 );
 
 // Admin user list use-case + controller
-const getUsersUseCase = new GetUsersUseCase(userRepository);
 export const adminUserController = new AdminUserController(getUsersUseCase, updateUserProfileUseCase);
 
 export const addressController = new AddressController(
@@ -88,6 +89,7 @@ export const useCases = {
   resetPasswordUseCase,
   changePasswordUseCase,
   updateUserAvatarUseCase,
+  getUsersUseCase,
   getUsersByIdsUseCase,
   // Address
   getUserAddressesUseCase,

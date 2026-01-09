@@ -896,3 +896,18 @@
     at SBMH.push (C:\Users\ROG\DoAnMangXaHoi\social-app\node_modules\streamsearch\lib\sbmh.js:104:16)
     at Multipart._write (C:\Users\ROG\DoAnMangXaHoi\social-app\node_modules\busboy\lib\types\multipart.js:567:19)
     at writeOrBuffer (node:internal/streams/writable:572:12)
+2026-01-08T15:28:19.506Z [ERROR]: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (D:\LTMB\social-app\node_modules\mongoose\lib\connection.js:1165:11)
+    at NativeConnection.openUri (D:\LTMB\social-app\node_modules\mongoose\lib\connection.js:1096:11)
+    at DatabaseConnection.connect (D:\LTMB\social-app\src\shared\database\connection.ts:36:7)
+2026-01-08T15:28:19.519Z [ERROR]: MongoServerSelectionError: 585C0000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1605:SSL alert number 80
+
+    at Topology.selectServer (D:\LTMB\social-app\node_modules\mongodb\src\sdam\topology.ts:635:30)
+    at Topology._connect (D:\LTMB\social-app\node_modules\mongodb\src\sdam\topology.ts:467:22)
+    at Topology.connect (D:\LTMB\social-app\node_modules\mongodb\src\sdam\topology.ts:404:7)
+    at topologyConnect (D:\LTMB\social-app\node_modules\mongodb\src\mongo_client.ts:695:9)
+    at MongoClient._connect (D:\LTMB\social-app\node_modules\mongodb\src\mongo_client.ts:707:7)
+    at MongoClient.connect (D:\LTMB\social-app\node_modules\mongodb\src\mongo_client.ts:619:7)
+    at NativeConnection.createClient (D:\LTMB\social-app\node_modules\mongoose\lib\drivers\node-mongodb-native\connection.js:351:3)
+    at NativeConnection.openUri (D:\LTMB\social-app\node_modules\mongoose\lib\connection.js:1094:5)
+    at DatabaseConnection.connect (D:\LTMB\social-app\src\shared\database\connection.ts:36:7)
