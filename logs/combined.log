@@ -1355,3 +1355,116 @@
 2026-01-08T12:10:13.786Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
 2026-01-08T12:10:29.860Z [INFO]: CORS check - origin: none method: POST path: /api/upload/images
 2026-01-08T12:10:32.619Z [INFO]: CORS check - origin: none method: POST path: /api/posts
+2026-01-09T00:03:22.023Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T00:03:22.026Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T00:03:22.038Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T00:03:22.045Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.172.68.133:5000
+2026-01-09T00:03:22.045Z [INFO]: 📊 Health check: http://26.172.68.133:5000/health
+2026-01-09T00:03:22.045Z [INFO]: 📖 API docs: http://26.172.68.133:5000/api
+2026-01-09T00:03:22.046Z [INFO]: 📚 Swagger docs: http://26.172.68.133:5000/api/docs
+2026-01-09T00:03:22.046Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T00:03:22.939Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T00:03:22.940Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T00:03:22.940Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T00:03:22.940Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-09T00:03:22.941Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T00:05:35.688Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T00:05:50.809Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T00:05:51.130Z [INFO]: User logged in: hovietthang1907@gmail.com
+2026-01-09T00:05:51.529Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
+2026-01-09T00:06:35.079Z [INFO]: CORS check - origin: none method: POST path: /api/upload/images
+2026-01-09T00:06:37.596Z [INFO]: CORS check - origin: none method: POST path: /api/posts
+2026-01-09T00:32:48.356Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T00:32:48.358Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T00:32:48.370Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T00:32:48.377Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.172.68.133:5000
+2026-01-09T00:32:48.378Z [INFO]: 📊 Health check: http://26.172.68.133:5000/health
+2026-01-09T00:32:48.378Z [INFO]: 📖 API docs: http://26.172.68.133:5000/api
+2026-01-09T00:32:48.378Z [INFO]: 📚 Swagger docs: http://26.172.68.133:5000/api/docs
+2026-01-09T00:32:48.379Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T00:32:49.202Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T00:32:49.203Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T00:32:49.204Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T00:32:49.204Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-00.egm9jot.mongodb.net:27017
+2026-01-09T00:32:49.204Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:41:49.049Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:41:49.052Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:41:49.068Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:41:49.078Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.172.68.133:5000
+2026-01-09T04:41:49.078Z [INFO]: 📊 Health check: http://26.172.68.133:5000/health
+2026-01-09T04:41:49.079Z [INFO]: 📖 API docs: http://26.172.68.133:5000/api
+2026-01-09T04:41:49.080Z [INFO]: 📚 Swagger docs: http://26.172.68.133:5000/api/docs
+2026-01-09T04:41:49.080Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:41:50.032Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:41:50.034Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:41:50.034Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:41:50.035Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T04:41:50.035Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:44:30.462Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T04:44:30.841Z [INFO]: User logged in: hovietthang1907@gmail.com
+2026-01-09T04:44:31.956Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
+2026-01-09T04:45:05.114Z [INFO]: CORS check - origin: none method: POST path: /api/upload/images
+2026-01-09T04:45:07.424Z [INFO]: CORS check - origin: none method: POST path: /api/posts
+2026-01-09T04:50:02.678Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T04:50:02.680Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T04:50:02.690Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T04:50:02.696Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.172.68.133:5000
+2026-01-09T04:50:02.696Z [INFO]: 📊 Health check: http://26.172.68.133:5000/health
+2026-01-09T04:50:02.696Z [INFO]: 📖 API docs: http://26.172.68.133:5000/api
+2026-01-09T04:50:02.697Z [INFO]: 📚 Swagger docs: http://26.172.68.133:5000/api/docs
+2026-01-09T04:50:02.697Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T04:50:03.458Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T04:50:03.460Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T04:50:03.460Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T04:50:03.460Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T04:50:03.460Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T04:51:14.872Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T04:51:15.225Z [INFO]: User logged in: hovietthang1907@gmail.com
+2026-01-09T04:51:15.767Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
+2026-01-09T05:03:13.530Z [INFO]: 🔄 Attempting to connect to MongoDB...
+2026-01-09T05:03:13.533Z [INFO]: 📡 URI: mongodb+srv://***:***@cluster0.egm9jot.mongodb.net/?appName=Cluster0
+2026-01-09T05:03:13.543Z [WARN]: ⚠️  Elasticsearch is not configured. Advanced search features are disabled.
+2026-01-09T05:03:13.549Z [INFO]: 🚀 Fresh Food Platform API đang chạy tại http://26.172.68.133:5000
+2026-01-09T05:03:13.550Z [INFO]: 📊 Health check: http://26.172.68.133:5000/health
+2026-01-09T05:03:13.550Z [INFO]: 📖 API docs: http://26.172.68.133:5000/api
+2026-01-09T05:03:13.551Z [INFO]: 📚 Swagger docs: http://26.172.68.133:5000/api/docs
+2026-01-09T05:03:13.551Z [INFO]: 💬 Socket.IO ready for realtime chat
+2026-01-09T05:03:14.331Z [INFO]: 🔗 Mongoose connected to MongoDB
+2026-01-09T05:03:14.333Z [INFO]: 🚀 Connected to MongoDB successfully
+2026-01-09T05:03:14.333Z [INFO]: 📊 Database: DAChuyenNganh
+2026-01-09T05:03:14.333Z [INFO]: 🌐 Host: ac-52gzbp4-shard-00-02.egm9jot.mongodb.net:27017
+2026-01-09T05:03:14.334Z [INFO]: ✅ MongoDB connected successfully
+2026-01-09T05:06:30.618Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T05:06:30.959Z [INFO]: User logged in: hovietthang1907@gmail.com
+2026-01-09T05:06:31.471Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
+2026-01-09T05:14:42.493Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T05:14:42.819Z [INFO]: User logged in: hovietthang1907@gmail.com
+2026-01-09T05:14:43.368Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
+2026-01-09T05:16:49.961Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T05:16:50.331Z [INFO]: User logged in: hovietthang1907@gmail.com
+2026-01-09T05:16:50.829Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
+2026-01-09T05:17:27.669Z [INFO]: CORS check - origin: none method: POST path: /api/posts
+2026-01-09T05:17:31.624Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=2&limit=10
+2026-01-09T05:17:31.829Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=3&limit=10
+2026-01-09T05:17:32.372Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=4&limit=10
+2026-01-09T05:17:32.560Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=5&limit=10
+2026-01-09T05:17:33.064Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=6&limit=10
+2026-01-09T05:17:33.264Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=7&limit=10
+2026-01-09T05:17:33.561Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=8&limit=10
+2026-01-09T05:20:45.375Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=9&limit=10
+2026-01-09T05:20:45.641Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=10&limit=10
+2026-01-09T05:20:45.840Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=11&limit=10
+2026-01-09T05:20:46.038Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=12&limit=10
+2026-01-09T05:20:46.518Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=13&limit=10
+2026-01-09T05:20:47.188Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=14&limit=10
+2026-01-09T05:20:47.335Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=15&limit=10
+2026-01-09T05:20:47.499Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=16&limit=10
+2026-01-09T05:20:47.652Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=17&limit=10
+2026-01-09T05:20:47.813Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=18&limit=10
+2026-01-09T05:23:28.962Z [INFO]: CORS check - origin: none method: POST path: /api/auth/login
+2026-01-09T05:23:29.288Z [INFO]: User logged in: hovietthang1907@gmail.com
+2026-01-09T05:23:29.728Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=1&limit=10
+2026-01-09T05:23:32.906Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=2&limit=10
+2026-01-09T05:23:33.097Z [INFO]: CORS check - origin: none method: GET path: /api/posts/feed/public?page=3&limit=10
+2026-01-09T05:23:34.601Z [INFO]: CORS check - origin: none method: POST path: /api/posts/69608f675173c2b78185a279/like
+2026-01-09T05:23:36.200Z [INFO]: CORS check - origin: none method: POST path: /api/posts/696087d336ba3d9f6cf1621f/like
