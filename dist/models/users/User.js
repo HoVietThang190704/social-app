@@ -60,6 +60,9 @@ const UserSchema = new mongoose_1.Schema({
     avatar: {
         type: String
     },
+    cloudinaryPublicId: {
+        type: String
+    },
     bio: {
         type: String,
         maxlength: 2000
@@ -72,8 +75,7 @@ const UserSchema = new mongoose_1.Schema({
         type: Date
     },
     address: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'Address'
+        type: mongoose_1.Schema.Types.Mixed,
     },
     role: {
         type: String,

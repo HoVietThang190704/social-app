@@ -76,7 +76,7 @@ router.get('/feed/user', auth_middleware_1.authMiddleware, (req, res) => postCon
  *       200:
  *         description: Thành công
  */
-router.get('/feed/public', (req, res) => postController.getPublicPosts(req, res));
+router.get('/feed/public', auth_middleware_1.optionalAuthMiddleware, (req, res) => postController.getPublicPosts(req, res));
 /**
  * @swagger
  * /api/posts/search/query:
@@ -104,7 +104,7 @@ router.get('/feed/public', (req, res) => postController.getPublicPosts(req, res)
  *       200:
  *         description: Thành công
  */
-router.get('/search/query', (req, res) => postController.searchPosts(req, res));
+router.get('/search/query', auth_middleware_1.optionalAuthMiddleware, (req, res) => postController.searchPosts(req, res));
 /**
  * @swagger
  * /api/posts/trending/now:
@@ -122,7 +122,7 @@ router.get('/search/query', (req, res) => postController.searchPosts(req, res));
  *       200:
  *         description: Thành công
  */
-router.get('/trending/now', (req, res) => postController.getTrendingPosts(req, res));
+router.get('/trending/now', auth_middleware_1.optionalAuthMiddleware, (req, res) => postController.getTrendingPosts(req, res));
 /**
  * @swagger
  * /api/posts/user/{userId}:
@@ -150,7 +150,7 @@ router.get('/trending/now', (req, res) => postController.getTrendingPosts(req, r
  *       200:
  *         description: Thành công
  */
-router.get('/user/:userId', (req, res) => postController.getUserPosts(req, res));
+router.get('/user/:userId', auth_middleware_1.optionalAuthMiddleware, (req, res) => postController.getUserPosts(req, res));
 /**
  * @swagger
  * /api/posts:
@@ -218,7 +218,7 @@ router.post('/', auth_middleware_1.authMiddleware, (0, validate_1.validate)(post
  *       400:
  *         description: Không thể tạo dữ liệu chia sẻ
  */
-router.get('/:postId/share-info', (req, res) => postController.getShareInfo(req, res));
+router.get('/:postId/share-info', auth_middleware_1.optionalAuthMiddleware, (req, res) => postController.getShareInfo(req, res));
 /**
  * @swagger
  * /api/posts/{postId}:
@@ -239,7 +239,7 @@ router.get('/:postId/share-info', (req, res) => postController.getShareInfo(req,
  *       404:
  *         description: Không tìm thấy bài post
  */
-router.get('/:postId', (req, res) => postController.getPostById(req, res));
+router.get('/:postId', auth_middleware_1.optionalAuthMiddleware, (req, res) => postController.getPostById(req, res));
 /**
  * @swagger
  * /api/posts/{postId}:

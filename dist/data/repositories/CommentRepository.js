@@ -15,14 +15,14 @@ class CommentRepository {
         const entity = new Comment_entity_1.CommentEntity({
             id: String(model._id),
             postId: String(model.postId),
-            userId: String(model.userId?._id || model.userId),
+            userId: String(model.authorId?._id || model.authorId || model.userId),
             content: model.content,
             images: model.images,
             cloudinaryPublicIds: model.cloudinaryPublicIds,
             parentCommentId: model.parentCommentId ? String(model.parentCommentId) : undefined,
             level: model.level,
             mentionedUserId: model.mentionedUserId ? String(model.mentionedUserId) : undefined,
-            likes: model.likes.map((id) => String(id)),
+            likes: (model.likes || []).map((id) => String(id)),
             likesCount: model.likesCount,
             repliesCount: model.repliesCount,
             isEdited: model.isEdited,
@@ -31,12 +31,12 @@ class CommentRepository {
             updatedAt: model.updatedAt
         });
         // Attach populated user data for DTO mapping
-        if (model.userId && typeof model.userId === 'object') {
+        if (model.authorId && typeof model.authorId === 'object') {
             entity.user = {
-                id: String(model.userId._id),
-                userName: model.userId.userName,
-                email: model.userId.email,
-                avatar: model.userId.avatar
+                id: String(model.authorId._id),
+                userName: model.authorId.userName,
+                email: model.authorId.email,
+                avatar: model.authorId.avatar
             };
         }
         // Attach mentioned user data if present
@@ -57,8 +57,9 @@ class CommentRepository {
         if (filters.postId) {
             filter.postId = filters.postId;
         }
-        if (filters.userId) {
-            filter.userId = filters.userId;
+        const authorId = filters.authorId || filters.userId;
+        if (authorId) {
+            filter.authorId = authorId;
         }
         if (filters.parentCommentId !== undefined) {
             if (filters.parentCommentId === null) {
@@ -100,7 +101,7 @@ class CommentRepository {
     async findById(id) {
         try {
             const comment = await Comment_1.Comment.findById(id)
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .populate('mentionedUserId', 'userName email avatar')
                 .lean();
             if (!comment)
@@ -124,7 +125,7 @@ class CommentRepository {
                     .sort(sort)
                     .skip(skip)
                     .limit(limit)
-                    .populate('userId', 'userName email avatar')
+                    .populate('authorId', 'userName email avatar')
                     .populate('mentionedUserId', 'userName email avatar')
                     .lean(),
                 Comment_1.Comment.countDocuments(filter)
@@ -146,10 +147,15 @@ class CommentRepository {
     }
     async create(commentData) {
         try {
-            const comment = new Comment_1.Comment(commentData);
+            const payload = {
+                ...commentData,
+                authorId: commentData.authorId || commentData.userId
+            };
+            delete payload.userId;
+            const comment = new Comment_1.Comment(payload);
             const saved = await comment.save();
             const populated = await Comment_1.Comment.findById(saved._id)
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .populate('mentionedUserId', 'userName email avatar')
                 .lean();
             return this.toDomainEntity(populated);
@@ -162,7 +168,7 @@ class CommentRepository {
     async update(id, data) {
         try {
             const updated = await Comment_1.Comment.findByIdAndUpdate(id, { $set: { ...data, updatedAt: new Date() } }, { new: true, runValidators: true })
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .populate('mentionedUserId', 'userName email avatar')
                 .lean();
             if (!updated)
@@ -193,7 +199,7 @@ class CommentRepository {
                 .sort({ createdAt: -1 })
                 .skip(skip)
                 .limit(limit)
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean(),
             Comment_1.Comment.countDocuments({ postId })
         ]);
@@ -236,7 +242,7 @@ class CommentRepository {
                 ]
             })
                 .sort({ createdAt: 1 })
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean();
             return comments.map(comment => this.toDomainEntity(comment));
         }
@@ -246,7 +252,7 @@ class CommentRepository {
         }
     }
     async findByUserId(userId, pagination) {
-        return this.findAll({ userId }, { sortBy: 'createdAt', order: 'desc' }, pagination);
+        return this.findAll({ authorId: userId }, { sortBy: 'createdAt', order: 'desc' }, pagination);
     }
     async toggleLike(commentId, userId) {
         try {
@@ -282,7 +288,7 @@ class CommentRepository {
                 $addToSet: { likes: userId },
                 $inc: { likesCount: 1 }
             }, { new: true })
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean();
             if (!updated)
                 return null;
@@ -299,7 +305,7 @@ class CommentRepository {
                 $pull: { likes: userId },
                 $inc: { likesCount: -1 }
             }, { new: true })
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean();
             if (!updated)
                 return null;
@@ -313,7 +319,7 @@ class CommentRepository {
     async incrementRepliesCount(commentId) {
         try {
             const updated = await Comment_1.Comment.findByIdAndUpdate(commentId, { $inc: { repliesCount: 1 } }, { new: true })
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean();
             if (!updated)
                 return null;
@@ -327,7 +333,7 @@ class CommentRepository {
     async decrementRepliesCount(commentId) {
         try {
             const updated = await Comment_1.Comment.findByIdAndUpdate(commentId, { $inc: { repliesCount: -1 } }, { new: true })
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean();
             if (!updated)
                 return null;
@@ -352,7 +358,7 @@ class CommentRepository {
                     .sort({ createdAt: 1 })
                     .skip(skip)
                     .limit(limit)
-                    .populate('userId', 'userName email avatar')
+                    .populate('authorId', 'userName email avatar')
                     .populate('mentionedUserId', 'userName email avatar')
                     .lean(),
                 Comment_1.Comment.countDocuments({ postId, level: 0, parentCommentId: null })
@@ -360,7 +366,7 @@ class CommentRepository {
             // Get all replies for this post (all depths). We'll assemble the nested tree in the presentation layer.
             const replies = await Comment_1.Comment.find({ postId, parentCommentId: { $ne: null } })
                 .sort({ createdAt: 1 })
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .populate('mentionedUserId', 'userName email avatar')
                 .lean();
             // Combine top-level comments with all replies (flat list). Presentation will build the nested structure.
@@ -391,7 +397,7 @@ class CommentRepository {
             const comments = await Comment_1.Comment.find({ postId })
                 .sort({ createdAt: -1 })
                 .limit(limit)
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean();
             return comments.map(comment => this.toDomainEntity(comment));
         }
@@ -405,7 +411,7 @@ class CommentRepository {
             const comments = await Comment_1.Comment.find({ postId })
                 .sort({ likesCount: -1 })
                 .limit(limit)
-                .populate('userId', 'userName email avatar')
+                .populate('authorId', 'userName email avatar')
                 .lean();
             return comments.map(comment => this.toDomainEntity(comment));
         }

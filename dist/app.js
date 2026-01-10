@@ -24,7 +24,10 @@ const reindex_service_1 = __importDefault(require("./services/search/reindex.ser
 // Import routes
 const auth_1 = require("./routes/auth");
 const users_1 = require("./routes/users");
+const posts_1 = __importDefault(require("./routes/posts"));
+const comments_1 = __importDefault(require("./routes/comments"));
 const upload_1 = require("./routes/upload");
+const chat_1 = require("./routes/chat");
 const app = (0, express_1.default)();
 // Middleware
 // Middleware
@@ -96,7 +99,10 @@ app.use('/uploads', express_1.default.static('uploads'));
 // API Routes
 app.use('/api/auth', auth_1.authRoutes);
 app.use('/api/users', users_1.userRoutes);
+app.use('/api/posts', posts_1.default);
+app.use('/api/comments', comments_1.default);
 app.use('/api/upload', upload_1.uploadRoutes);
+app.use('/api/chat', chat_1.chatRoutes);
 // Setup Swagger documentation TRƯỚC khi định nghĩa 404 handler
 (0, setup_1.setupSwagger)(app);
 // API documentation
