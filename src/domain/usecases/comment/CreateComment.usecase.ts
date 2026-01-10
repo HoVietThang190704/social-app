@@ -66,13 +66,13 @@ export class CreateCommentUseCase {
       throw new Error('Không tìm thấy bài viết');
     }
 
-    const commentData: Omit<CommentEntity, 'id' | 'createdAt' | 'updatedAt'> = {
+    const commentData: Omit<CommentEntity, 'id'> = {
       postId: targetPostId,
       userId: dto.userId,
       content: trimmedContent,
       images: dto.images || [],
       cloudinaryPublicIds: dto.cloudinaryPublicIds || [],
-      parentCommentId: parentComment ? parentComment.id : null,
+      parentCommentId: parentComment ? parentComment.id : undefined,
       level,
       mentionedUserId: dto.mentionedUserId,
       likes: [],
@@ -82,7 +82,7 @@ export class CreateCommentUseCase {
       editedAt: undefined,
       createdAt: new Date(),
       updatedAt: new Date()
-    } as CommentEntity;
+    };
 
     const created = await this.commentRepository.create(commentData);
 

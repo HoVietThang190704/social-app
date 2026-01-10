@@ -74,6 +74,36 @@ exports.userRoutes = (0, express_1.Router)();
 exports.userRoutes.get('/me/profile', auth_1.authenticate, (req, res) => container_1.userController.getProfile(req, res));
 /**
  * @swagger
+ * /api/users/search:
+ *   get:
+ *     summary: Tìm kiếm người dùng theo tên hoặc email
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         description: Từ khóa tìm kiếm (tối thiểu 2 ký tự)
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *           maximum: 50
+ *     responses:
+ *       200:
+ *         description: Danh sách người dùng phù hợp
+ */
+exports.userRoutes.get('/search', auth_1.authenticate, (req, res) => container_1.userController.searchUsers(req, res));
+/**
+ * @swagger
  * /api/users/{userId}/public-profile:
  *   get:
  *     summary: Lấy thông tin công khai của người dùng theo ID

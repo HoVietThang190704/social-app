@@ -3,6 +3,7 @@ import { UserRepository } from '../data/repositories/UserRepository';
 import { AddressRepository } from '../data/repositories/AddressRepository';
 import { PostRepository } from '../data/repositories/PostRepository';
 import { ChatSupportRepository } from '../data/repositories/ChatSupportRepository';
+import { DirectMessageRepository } from '../data/repositories/DirectMessageRepository';
 
 // ==================== USE CASES ====================
 // User Use Cases
@@ -26,13 +27,18 @@ import { AddressController } from '../presentation/controllers/AddressController
 import { GetUsersByIdsUseCase } from '../domain/usecases/user/GetUsersByIds.usecase';
 import { GetUsersUseCase } from '../domain/usecases/user/GetUsers.usecase';
 import { AdminUserController } from '../presentation/controllers/AdminUserController';
-import { config } from '../config';
+import { ListChatThreadsUseCase } from '../domain/usecases/chat/ListChatThreads.usecase';
+import { ListChatMessagesUseCase } from '../domain/usecases/chat/ListChatMessages.usecase';
+import { SendChatMessageUseCase } from '../domain/usecases/chat/SendChatMessage.usecase';
+import { MarkThreadReadUseCase } from '../domain/usecases/chat/MarkThreadRead.usecase';
+import { ChatController } from '../presentation/controllers/ChatController';
 
 // ==================== REPOSITORY INSTANCES ====================
 const userRepository = new UserRepository();
 const addressRepository = new AddressRepository();
 const postRepository = new PostRepository();
 const chatSupportRepository = new ChatSupportRepository();
+const directMessageRepository = new DirectMessageRepository();
 
 // ==================== USE CASE INSTANCES ====================
 // User Use Cases
@@ -51,6 +57,12 @@ const createAddressUseCase = new CreateAddressUseCase(addressRepository);
 const updateAddressUseCase = new UpdateAddressUseCase(addressRepository);
 const deleteAddressUseCase = new DeleteAddressUseCase(addressRepository);
 const setDefaultAddressUseCase = new SetDefaultAddressUseCase(addressRepository);
+
+// Chat Use Cases
+const listChatThreadsUseCase = new ListChatThreadsUseCase(directMessageRepository);
+const listChatMessagesUseCase = new ListChatMessagesUseCase(directMessageRepository);
+const sendChatMessageUseCase = new SendChatMessageUseCase(directMessageRepository);
+const markThreadReadUseCase = new MarkThreadReadUseCase(directMessageRepository);
 
 // ==================== CONTROLLER INSTANCES ====================
 export const userController = new UserController(
@@ -74,12 +86,20 @@ export const addressController = new AddressController(
   setDefaultAddressUseCase
 );
 
+export const chatController = new ChatController(
+  listChatThreadsUseCase,
+  listChatMessagesUseCase,
+  sendChatMessageUseCase,
+  markThreadReadUseCase
+);
+
 // ==================== EXPORTS FOR REUSE ====================
 export const repositories = {
   userRepository,
   addressRepository,
   postRepository,
   chatSupportRepository,
+  directMessageRepository,
 };
 
 export const useCases = {
@@ -97,5 +117,10 @@ export const useCases = {
   updateAddressUseCase,
   deleteAddressUseCase,
   setDefaultAddressUseCase,
+  // Chat
+  listChatThreadsUseCase,
+  listChatMessagesUseCase,
+  sendChatMessageUseCase,
+  markThreadReadUseCase,
 };
 

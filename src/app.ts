@@ -24,6 +24,7 @@ import { userRoutes } from './routes/users';
 import postRoutes from './routes/posts';
 import commentRoutes from './routes/comments';
 import { uploadRoutes } from './routes/upload';
+import { chatRoutes } from './routes/chat';
 
 const app = express();
 
@@ -114,6 +115,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Setup Swagger documentation TRƯỚC khi định nghĩa 404 handler
 setupSwagger(app);

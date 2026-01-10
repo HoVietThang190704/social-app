@@ -374,6 +374,20 @@ class PostRepository {
             throw new Error('Lỗi khi giảm comments count');
         }
     }
+    async adjustCommentsCount(postId, delta) {
+        try {
+            const updated = await Post_1.Post.findByIdAndUpdate(postId, { $inc: { commentsCount: delta } }, { new: true })
+                .populate('userId', 'userName email avatar')
+                .lean();
+            if (!updated)
+                return null;
+            return this.toDomainEntity(updated);
+        }
+        catch (error) {
+            logger_1.logger.error('Error adjusting comments count:', error);
+            throw new Error('Lỗi khi cập nhật số bình luận');
+        }
+    }
     async incrementSharesCount(postId) {
         try {
             const updated = await Post_1.Post.findByIdAndUpdate(postId, { $inc: { sharesCount: 1 } }, { new: true })
