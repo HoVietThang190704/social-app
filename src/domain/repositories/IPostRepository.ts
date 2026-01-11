@@ -4,6 +4,7 @@ export interface PostFilters {
   userId?: string;
   visibility?: 'public' | 'friends' | 'private';
   hasImages?: boolean;
+  hasVideos?: boolean;
   isShared?: boolean;
   originalPostId?: string;
   search?: string;

@@ -4,6 +4,8 @@ export interface IPostEntity {
   content: string;
   images: string[];
   cloudinaryPublicIds: string[];
+  videos: string[];
+  videoPublicIds: string[];
   
   likes: string[];
   likesCount: number;
@@ -27,6 +29,8 @@ export class PostEntity implements IPostEntity {
   content: string;
   images: string[];
   cloudinaryPublicIds: string[];
+  videos: string[];
+  videoPublicIds: string[];
   likes: string[];
   likesCount: number;
   commentsCount: number;
@@ -49,6 +53,8 @@ export class PostEntity implements IPostEntity {
     this.likesCount = data.likesCount || 0;
     this.commentsCount = data.commentsCount || 0;
     this.sharesCount = data.sharesCount || 0;
+    this.videos = data.videos || [];
+    this.videoPublicIds = data.videoPublicIds || [];
     this.visibility = data.visibility || 'public';
     this.isEdited = data.isEdited || false;
     this.editedAt = data.editedAt;
@@ -58,8 +64,20 @@ export class PostEntity implements IPostEntity {
     this.updatedAt = data.updatedAt;
   }
 
+  updateVideos(videos: string[], videoPublicIds: string[]): void {
+    this.videos = videos;
+    this.videoPublicIds = videoPublicIds;
+    this.isEdited = true;
+    this.editedAt = new Date();
+    this.updatedAt = new Date();
+  }
+
   isLikedBy(userId: string): boolean {
     return this.likes.includes(userId);
+  }
+
+  hasVideos(): boolean {
+    return this.videos.length > 0;
   }
 
   toggleLike(userId: string): boolean {
@@ -208,6 +226,8 @@ export class PostEntity implements IPostEntity {
         content: this.content,
         images: this.images,
         cloudinaryPublicIds: this.cloudinaryPublicIds,
+        videos: this.videos,
+        videoPublicIds: this.videoPublicIds,
         likes: this.likes,
         likesCount: this.likesCount,
         commentsCount: this.commentsCount,

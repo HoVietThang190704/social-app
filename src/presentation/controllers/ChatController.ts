@@ -3,6 +3,8 @@ import { ListChatThreadsUseCase } from '../../domain/usecases/chat/ListChatThrea
 import { ListChatMessagesUseCase } from '../../domain/usecases/chat/ListChatMessages.usecase';
 import { SendChatMessageUseCase } from '../../domain/usecases/chat/SendChatMessage.usecase';
 import { MarkThreadReadUseCase } from '../../domain/usecases/chat/MarkThreadRead.usecase';
+import { CreateGroupUseCase } from '../../domain/usecases/chat/CreateGroup.usecase';
+import { ListGroupsUseCase } from '../../domain/usecases/chat/ListGroups.usecase';
 import { logger } from '../../shared/utils/logger';
 import { HttpStatus } from '../../shared/constants/httpStatus';
 
@@ -11,7 +13,10 @@ export class ChatController {
     private listThreadsUseCase: ListChatThreadsUseCase,
     private listMessagesUseCase: ListChatMessagesUseCase,
     private sendMessageUseCase: SendChatMessageUseCase,
-    private markThreadReadUseCase: MarkThreadReadUseCase
+    private markThreadReadUseCase: MarkThreadReadUseCase,
+    private createGroupUseCase?: CreateGroupUseCase,
+    private listGroupsUseCase?: ListGroupsUseCase,
+    private getGroupUseCase?: import('../../domain/usecases/chat/GetGroup.usecase').GetGroupUseCase
   ) {}
 
   private ensureUser(req: Request, res: Response): string | null {
@@ -81,6 +86,8 @@ export class ChatController {
     }
   }
 
+
+
   async markThreadRead(req: Request, res: Response) {
     try {
       const userId = this.ensureUser(req, res);
@@ -95,6 +102,63 @@ export class ChatController {
     } catch (error: any) {
       logger.error('ChatController.markThreadRead error:', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: error?.message || 'Không thể cập nhật trạng thái đọc' });
+    }
+  }
+
+  async createGroup(req: Request, res: Response) {
+    try {
+      const userId = this.ensureUser(req, res);
+      if (!userId) return;
+
+      const { name, memberIds, avatar } = req.body as { name: string; memberIds?: string[]; avatar?: string };
+      if (!this.createGroupUseCase) {
+        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: 'Group feature unavailable' });
+      }
+
+      const group = await this.createGroupUseCase.execute({ name, creatorId: userId, memberIds, avatar });
+      res.status(HttpStatus.CREATED).json({ success: true, data: group });
+    } catch (error: any) {
+      logger.error('ChatController.createGroup error:', error);
+      res.status(HttpStatus.BAD_REQUEST).json({ success: false, message: error?.message || 'Không thể tạo nhóm' });
+    }
+  }
+
+  async listGroups(req: Request, res: Response) {
+    try {
+      const userId = this.ensureUser(req, res);
+      if (!userId) return;
+
+      const page = Number(req.query.page || 1);
+      const limit = Number(req.query.limit || 20);
+
+      if (!this.listGroupsUseCase) {
+        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: 'Group feature unavailable' });
+      }
+
+      const result = await this.listGroupsUseCase.execute(userId, limit, (page - 1) * limit);
+      res.json({ success: true, data: result.groups, total: result.total, page, limit });
+    } catch (error: any) {
+      logger.error('ChatController.listGroups error:', error);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: error?.message || 'Không thể lấy danh sách nhóm' });
+    }
+  }
+
+  async getGroup(req: Request, res: Response) {
+    try {
+      const userId = this.ensureUser(req, res);
+      if (!userId) return;
+
+      const groupId = req.params.groupId;
+      if (!this.getGroupUseCase) {
+        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: 'Group feature unavailable' });
+      }
+
+      const group = await this.getGroupUseCase.execute(groupId);
+      if (!group) return res.status(HttpStatus.NOT_FOUND).json({ success: false, message: 'Không tìm thấy nhóm' });
+      res.json({ success: true, data: group });
+    } catch (error: any) {
+      logger.error('ChatController.getGroup error:', error);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, message: error?.message || 'Không thể lấy nhóm' });
     }
   }
 }

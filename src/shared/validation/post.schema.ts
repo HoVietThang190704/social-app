@@ -5,8 +5,12 @@ export const createPostSchema = z.object({
     content: z.string().max(5000).optional(),
     images: z.array(z.string().url()).optional(),
     cloudinaryPublicIds: z.array(z.string()).optional(),
+    videos: z.array(z.string().url()).optional(),
+    videoPublicIds: z.array(z.string()).optional(),
     visibility: z.enum(['public', 'private', 'friends']).optional()
-  }).refine(data => (data.content && data.content.trim().length > 0) || (data.images && data.images.length > 0) || (data.cloudinaryPublicIds && data.cloudinaryPublicIds.length > 0), { message: 'Cần nội dung hoặc ít nhất một ảnh' })
+  }).refine(data => (data.content && data.content.trim().length > 0)
+    || (data.images && data.images.length > 0)
+    || (data.videos && data.videos.length > 0), { message: 'Cần nội dung hoặc ít nhất một ảnh hoặc video' })
 });
 
 export const updatePostSchema = z.object({
@@ -14,6 +18,8 @@ export const updatePostSchema = z.object({
     content: z.string().max(5000).optional(),
     images: z.array(z.string().url()).optional(),
     cloudinaryPublicIds: z.array(z.string()).optional(),
+    videos: z.array(z.string().url()).optional(),
+    videoPublicIds: z.array(z.string()).optional(),
     visibility: z.enum(['public', 'private', 'friends']).optional()
   }).refine(data => Object.keys(data).length > 0, { message: 'Cần ít nhất một trường để cập nhật' })
 });
@@ -31,6 +37,8 @@ export const postEntitySchema = z.object({
   content: z.string().min(1, 'Nội dung bài viết không được để trống').max(10000, 'Nội dung bài viết không được vượt quá 10,000 ký tự'),
   images: z.array(z.string().url()).optional(),
   cloudinaryPublicIds: z.array(z.string()).optional(),
+  videos: z.array(z.string().url()).optional(),
+  videoPublicIds: z.array(z.string()).optional(),
   likes: z.array(z.string()).optional(),
   likesCount: z.number().nonnegative().optional(),
   commentsCount: z.number().nonnegative().optional(),
@@ -45,10 +53,18 @@ export const postEntitySchema = z.object({
 }).superRefine((data, ctx) => {
   const imagesLen = (data.images ?? []).length;
   const idsLen = (data.cloudinaryPublicIds ?? []).length;
+  const videosLen = (data.videos ?? []).length;
+  const videoIdsLen = (data.videoPublicIds ?? []).length;
   if (imagesLen > 10) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Số lượng hình ảnh không được vượt quá 10' });
   }
   if (imagesLen !== idsLen) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Số lượng hình ảnh và public IDs không khớp' });
+  }
+  if (videosLen > 2) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Số lượng video không được vượt quá 2' });
+  }
+  if (videosLen !== videoIdsLen) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Số lượng video và public IDs không khớp' });
   }
 });

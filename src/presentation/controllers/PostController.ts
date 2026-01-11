@@ -88,6 +88,8 @@ export class PostController {
         content: data.content,
         images: data.images,
         cloudinaryPublicIds: data.cloudinaryPublicIds,
+        videos: data.videos,
+        videoPublicIds: data.videoPublicIds,
         visibility: data.visibility
       });
 

@@ -7,6 +7,8 @@ export interface CreatePostDTO {
   content: string;
   images?: string[];
   cloudinaryPublicIds?: string[];
+  videos?: string[];
+  videoPublicIds?: string[];
   visibility?: 'public' | 'friends' | 'private';
 }
 
@@ -23,9 +25,10 @@ export class CreatePostUseCase {
 
     const hasContent = dto.content && dto.content.trim().length > 0;
     const hasImages = dto.images && dto.images.length > 0;
+    const hasVideos = dto.videos && dto.videos.length > 0;
     
-    if (!hasContent && !hasImages) {
-      throw new Error('Bài viết phải có nội dung hoặc hình ảnh');
+    if (!hasContent && !hasImages && !hasVideos) {
+      throw new Error('Bài viết phải có nội dung, hình ảnh hoặc video');
     }
     if (dto.content && dto.content.length > 10000) {
       throw new Error('Nội dung bài viết không được vượt quá 10,000 ký tự');
@@ -39,12 +42,22 @@ export class CreatePostUseCase {
       throw new Error('Số lượng hình ảnh và public IDs không khớp');
     }
 
+    if (dto.videos && dto.videos.length > 2) {
+      throw new Error('Số lượng video không được vượt quá 2');
+    }
+
+    if (dto.videos && dto.videoPublicIds && dto.videos.length !== dto.videoPublicIds.length) {
+      throw new Error('Số lượng video và public IDs không khớp');
+    }
+
     // Create post entity
     const postData: Omit<PostEntity, 'id' | 'createdAt' | 'updatedAt'> = {
       userId: dto.userId,
       content: dto.content ? dto.content.trim() : '',
       images: dto.images || [],
       cloudinaryPublicIds: dto.cloudinaryPublicIds || [],
+      videos: dto.videos || [],
+      videoPublicIds: dto.videoPublicIds || [],
       likes: [],
       likesCount: 0,
       commentsCount: 0,

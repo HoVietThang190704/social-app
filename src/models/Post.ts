@@ -6,6 +6,8 @@ export interface IPost extends Document {
   content: string;
   images: string[];
   cloudinaryPublicIds: string[];
+  videos: string[];
+  videoPublicIds: string[];
   
   // Engagement metrics
   likes: Types.ObjectId[]; // Array of user IDs who liked
@@ -51,6 +53,20 @@ const PostSchema: Schema = new Schema({
     }
   },
   cloudinaryPublicIds: {
+    type: [String],
+    default: []
+  },
+  videos: {
+    type: [String],
+    default: [],
+    validate: {
+      validator: function(v: string[]) {
+        return v.length <= 2;
+      },
+      message: 'Số lượng video không được vượt quá 2'
+    }
+  },
+  videoPublicIds: {
     type: [String],
     default: []
   },
