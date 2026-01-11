@@ -32,7 +32,7 @@ export class DeletePostUseCase {
       throw new Error('Không tìm thấy bài viết');
     }
 
-    // Check authorization
+    // Check authorization (owner or admin)
     if (!existingPost.canBeDeletedBy(dto.userId, dto.isAdmin)) {
       throw new Error('Bạn không có quyền xóa bài viết này');
     }
