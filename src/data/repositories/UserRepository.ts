@@ -27,7 +27,8 @@ export class UserRepository implements IUserRepository {
   }
 
   async findById(id: string): Promise<UserEntity | null> {
-    const user = await UserModel.findById(id);
+    // Populate friends so public profile can include friend previews
+    const user = await UserModel.findById(id).populate({ path: 'friends', select: 'userName email avatar createdAt' });
     return user ? this.mapToEntity(user) : null;
   }
 
@@ -216,6 +217,18 @@ export class UserRepository implements IUserRepository {
     const cloudinaryId = (model as any).cloudinaryPublicId ?? (model as any).cloudinaryPublicIds ?? undefined;
     const facebookID = (model as any).facebookID ?? (model as any).facebookId ?? undefined;
 
+    const addressWithFriends: any = (model as any).address ?? {};
+    if ((model as any).friends && Array.isArray((model as any).friends)) {
+      addressWithFriends.friends = (model as any).friends.map((f: any) => ({
+        id: f._id?.toString(),
+        name: f.userName || f.email,
+        photo: f.avatar || null,
+      }));
+    }
+    if ((model as any).friendsCount !== undefined) {
+      addressWithFriends.friendCount = (model as any).friendsCount;
+    }
+
     return new UserEntity(
       model.email,
       model.password ?? '',
@@ -228,8 +241,8 @@ export class UserRepository implements IUserRepository {
       cloudinaryId,
       facebookID,
       model.googleId,
-      // address
-      (model as any).address,
+      // address (with optional friends preview)
+      addressWithFriends,
       // dateOfBirth
       model.date_of_birth,
       model.createdAt,
