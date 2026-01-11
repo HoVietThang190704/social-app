@@ -1,6 +1,9 @@
 import { IDirectMessageRepository } from '../../repositories/chat/IDirectMessageRepository';
 import { DirectMessageAttachment } from '../../entities/chat/DirectMessage.entity';
 import { emitDirectMessage, emitDirectThreadUpdate } from '../../../services/chat/directMessageEvents';
+import { pushNotificationService } from '../../../services/notification/PushNotificationService';
+import { User } from '../../../models/users/User';
+import { logger } from '../../../shared/utils/logger';
 
 interface SendChatMessageInput {
   senderId: string;
@@ -37,7 +40,48 @@ export class SendChatMessageUseCase {
     emitDirectMessage(result.thread, result.message);
     emitDirectThreadUpdate(result.thread);
 
+    await this.sendNewMessageNotification(input.senderId, input.recipientId, input.content, result.thread.id);
+
     return result;
+  }
+
+  private async sendNewMessageNotification(
+    senderId: string,
+    recipientId: string,
+    content: string | null | undefined,
+    threadId: string
+  ): Promise<void> {
+    try {
+      const [sender, recipient] = await Promise.all([
+        User.findById(senderId).select('userName email avatar').lean(),
+        User.findById(recipientId).select('userName email pushToken').lean()
+      ]);
+
+      if (!sender || !recipient) return;
+
+      const senderName = sender.userName || sender.email || 'Someone';
+      const messagePreview = content && content.length > 50 
+        ? content.substring(0, 50) + '...' 
+        : content || 'Sent an attachment';
+
+      // Only send push notification, don't save to database
+      const recipientPushToken = (recipient as any).pushToken;
+      if (recipientPushToken) {
+        await pushNotificationService.sendToDevice(recipientPushToken, {
+          title: 'New Message',
+          body: `${senderName}: ${messagePreview}`,
+          data: {
+            type: 'new_message',
+            senderId: senderId,
+            senderName: senderName,
+            senderAvatar: sender.avatar || null,
+            threadId: threadId
+          }
+        });
+      }
+    } catch (error) {
+      logger.error('Error sending new message notification:', error);
+    }
   }
 
   private async resolveThreadId(senderId: string, recipientId: string): Promise<string> {
