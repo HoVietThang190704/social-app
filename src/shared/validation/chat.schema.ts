@@ -25,3 +25,9 @@ export const markThreadReadSchema = z.object({
     threadId: z.string().min(1, 'threadId là bắt buộc')
   })
 });
+
+export const createGroupSchema = z.object({
+  name: z.string().min(1, 'Tên nhóm là bắt buộc').max(200),
+  memberIds: z.array(z.string().min(1)).optional(),
+  avatar: z.string().url().optional().nullable()
+});

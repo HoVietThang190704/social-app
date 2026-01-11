@@ -14,6 +14,7 @@ export interface PostDTO {
   };
   content: string;
   images: string[];
+  videos: string[];
   
   // Engagement
   likesCount: number;
@@ -47,6 +48,8 @@ export interface CreatePostRequestDTO {
   content: string;
   images?: string[];
   cloudinaryPublicIds?: string[];
+  videos?: string[];
+  videoPublicIds?: string[];
   visibility?: 'public' | 'friends' | 'private';
 }
 
@@ -57,6 +60,8 @@ export interface UpdatePostRequestDTO {
   content?: string;
   images?: string[];
   cloudinaryPublicIds?: string[];
+  videos?: string[];
+  videoPublicIds?: string[];
   visibility?: 'public' | 'friends' | 'private';
 }
 
@@ -98,6 +103,7 @@ export class PostMapper {
       user: populatedData?.user ?? (entity as any).user,
       content: entity.content,
       images: entity.images,
+      videos: entity.videos,
       likesCount: entity.likesCount,
       commentsCount: entity.commentsCount,
       sharesCount: entity.sharesCount,

@@ -134,6 +134,18 @@ export class SocketService {
       };
       socket.to(`friend-chat:thread:${payload.threadId}`).emit('friend-chat:typing', data);
     });
+
+    // Group chat events
+    socket.on('group-chat:join', (payload) => {
+      if (!authUser || !payload?.groupId) return;
+      socket.join(`group-chat:group:${payload.groupId}`);
+      socket.join(`group-chat:user:${authUser.userId}`);
+    });
+
+    socket.on('group-chat:leave', (payload) => {
+      if (!authUser || !payload?.groupId) return;
+      socket.leave(`group-chat:group:${payload.groupId}`);
+    });
   }
 
   public getIO(): SocketIOServer {

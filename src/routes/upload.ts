@@ -42,6 +42,33 @@ const upload = multer({
   }
 });
 
+const videoUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 100 * 1024 * 1024, 
+  },
+  fileFilter: (req, file, cb) => {
+    try {
+      const allowedTypes = /(mp4|mov|m4v|avi|mkv|wmv|flv|3gp)/;
+      const orig = String(file.originalname || '');
+        const ext = path.extname(orig).toLowerCase().replace(/^\./, '');
+      const mimetype = String(file.mimetype || '');
+
+      const isVideoMime = mimetype.startsWith('video/');
+      const isAllowedExt = allowedTypes.test(ext);
+
+      if (isVideoMime || isAllowedExt) {
+        return cb(null, true);
+      }
+
+      cb(new Error('Only video files are allowed!'));
+    } catch (err) {
+      console.error('[upload] video fileFilter error', err);
+      cb(new Error('Only video files are allowed!'));
+    }
+  }
+});
+
 /**
  * @swagger
  * /api/upload/images:
@@ -113,6 +140,32 @@ router.post('/images', authMiddleware, upload.array('images', 10), requireFiles(
   }
 });
 
+router.post('/videos', authMiddleware, videoUpload.array('videos', 2), requireFiles('videos', 1, 2), async (req: Request, res: Response) => {
+  try {
+    const files = req.files as Express.Multer.File[];
+    console.info('[upload] video origin:', req.headers.origin || 'none', 'files:', files.map(f => f.originalname));
+
+    const uploadResults = await CloudinaryService.uploadMultipleVideos(files, 'posts/videos');
+
+    const urls = uploadResults.map(result => result.url);
+    const publicIds = uploadResults.map(result => result.publicId);
+
+    res.status(HttpStatus.OK).json({
+      success: true,
+      data: {
+        urls,
+        publicIds
+      }
+    });
+  } catch (error: any) {
+    console.error('Error uploading videos:', error);
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: error.message || 'Failed to upload videos'
+    });
+  }
+});
+
 /**
  * @swagger
  * /api/upload/images/{publicId}:
@@ -152,6 +205,24 @@ router.delete('/images/:publicId', authMiddleware, async (req: Request, res: Res
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: error.message || 'Failed to delete image'
+    });
+  }
+});
+
+router.delete('/videos/:publicId', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const decodedPublicId = decodeURIComponent(req.params.publicId);
+    await CloudinaryService.deleteVideo(decodedPublicId);
+
+    res.status(HttpStatus.OK).json({
+      success: true,
+      message: 'Video deleted successfully'
+    });
+  } catch (error: any) {
+    console.error('Error deleting video:', error);
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: error.message || 'Failed to delete video'
     });
   }
 });

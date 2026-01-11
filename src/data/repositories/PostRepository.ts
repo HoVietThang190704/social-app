@@ -24,6 +24,8 @@ export class PostRepository implements IPostRepository {
       content: model.content,
       images: model.images,
       cloudinaryPublicIds: model.cloudinaryPublicIds,
+      videos: model.videos || [],
+      videoPublicIds: model.videoPublicIds || [],
       likes: model.likes.map((id: any) => String(id)),
       likesCount: model.likesCount,
       commentsCount: model.commentsCount,
@@ -68,6 +70,10 @@ export class PostRepository implements IPostRepository {
 
     if (filters.hasImages !== undefined) {
       filter[filters.hasImages ? 'images.0' : 'images'] = filters.hasImages ? { $exists: true } : { $size: 0 };
+    }
+
+    if (filters.hasVideos !== undefined) {
+      filter[filters.hasVideos ? 'videos.0' : 'videos'] = filters.hasVideos ? { $exists: true } : { $size: 0 };
     }
 
     if (filters.isShared !== undefined) {

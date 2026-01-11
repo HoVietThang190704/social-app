@@ -8,6 +8,8 @@ export interface UpdatePostDTO {
   content?: string;
   images?: string[];
   cloudinaryPublicIds?: string[];
+  videos?: string[];
+  videoPublicIds?: string[];
   visibility?: 'public' | 'friends' | 'private';
 }
 
@@ -59,6 +61,14 @@ export class UpdatePostUseCase {
       throw new Error('Số lượng hình ảnh và public IDs không khớp');
     }
 
+    if (dto.videos && dto.videos.length > 2) {
+      throw new Error('Số lượng video không được vượt quá 2');
+    }
+
+    if (dto.videos && dto.videoPublicIds && dto.videos.length !== dto.videoPublicIds.length) {
+      throw new Error('Số lượng video và public IDs không khớp');
+    }
+
     // Prepare update data
     const updateData: Partial<PostEntity> = {
       isEdited: true,
@@ -72,6 +82,11 @@ export class UpdatePostUseCase {
     if (dto.images !== undefined) {
       updateData.images = dto.images;
       updateData.cloudinaryPublicIds = dto.cloudinaryPublicIds || [];
+    }
+
+    if (dto.videos !== undefined) {
+      updateData.videos = dto.videos;
+      updateData.videoPublicIds = dto.videoPublicIds || [];
     }
 
     if (dto.visibility !== undefined) {

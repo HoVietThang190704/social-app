@@ -32,6 +32,10 @@ import { ListChatMessagesUseCase } from '../domain/usecases/chat/ListChatMessage
 import { SendChatMessageUseCase } from '../domain/usecases/chat/SendChatMessage.usecase';
 import { MarkThreadReadUseCase } from '../domain/usecases/chat/MarkThreadRead.usecase';
 import { ChatController } from '../presentation/controllers/ChatController';
+import { GroupRepository } from '../data/repositories/GroupRepository';
+import { CreateGroupUseCase } from '../domain/usecases/chat/CreateGroup.usecase';
+import { ListGroupsUseCase } from '../domain/usecases/chat/ListGroups.usecase';
+import { GetGroupUseCase } from '../domain/usecases/chat/GetGroup.usecase';
 
 // ==================== REPOSITORY INSTANCES ====================
 const userRepository = new UserRepository();
@@ -39,6 +43,7 @@ const addressRepository = new AddressRepository();
 const postRepository = new PostRepository();
 const chatSupportRepository = new ChatSupportRepository();
 const directMessageRepository = new DirectMessageRepository();
+const groupRepository = new GroupRepository();
 
 // ==================== USE CASE INSTANCES ====================
 // User Use Cases
@@ -63,6 +68,11 @@ const listChatThreadsUseCase = new ListChatThreadsUseCase(directMessageRepositor
 const listChatMessagesUseCase = new ListChatMessagesUseCase(directMessageRepository);
 const sendChatMessageUseCase = new SendChatMessageUseCase(directMessageRepository);
 const markThreadReadUseCase = new MarkThreadReadUseCase(directMessageRepository);
+
+// Groups
+const createGroupUseCase = new CreateGroupUseCase(groupRepository);
+const listGroupsUseCase = new ListGroupsUseCase(groupRepository);
+const getGroupUseCase = new GetGroupUseCase(groupRepository);
 
 // ==================== CONTROLLER INSTANCES ====================
 export const userController = new UserController(
@@ -90,7 +100,10 @@ export const chatController = new ChatController(
   listChatThreadsUseCase,
   listChatMessagesUseCase,
   sendChatMessageUseCase,
-  markThreadReadUseCase
+  markThreadReadUseCase,
+  createGroupUseCase,
+  listGroupsUseCase,
+  getGroupUseCase
 );
 
 // ==================== EXPORTS FOR REUSE ====================
@@ -100,6 +113,7 @@ export const repositories = {
   postRepository,
   chatSupportRepository,
   directMessageRepository,
+  groupRepository,
 };
 
 export const useCases = {
@@ -122,5 +136,8 @@ export const useCases = {
   listChatMessagesUseCase,
   sendChatMessageUseCase,
   markThreadReadUseCase,
+  createGroupUseCase,
+  listGroupsUseCase,
+  getGroupUseCase,
 };
 
