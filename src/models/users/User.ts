@@ -19,9 +19,12 @@ export interface IUser extends Document {
   googleId?: string;
   followers: Types.ObjectId[];
   following: Types.ObjectId[];
+  friends: Types.ObjectId[];
   followersCount: number;
   followingCount: number;
+  friendsCount: number;
   postsCount: number;
+  pushToken?: string;
   lastActive?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -90,9 +93,12 @@ const UserSchema: Schema = new Schema({
   },
   followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   followersCount: { type: Number, default: 0, min: 0 },
   followingCount: { type: Number, default: 0, min: 0 },
+  friendsCount: { type: Number, default: 0, min: 0 },
   postsCount: { type: Number, default: 0, min: 0 },
+  pushToken: { type: String, default: null },
   lastActive: { type: Date }
 }, {
   timestamps: true,

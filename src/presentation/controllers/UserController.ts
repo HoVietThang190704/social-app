@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { GetUsersUseCase } from '../../domain/usecases/user/GetUsers.usecase';
 import { UserMapper } from '../dto/user/User.dto';
 import { logger } from '../../shared/utils/logger';
+import { User } from '../../models/users/User';
 
 export class UserController {
   constructor(
@@ -160,6 +161,30 @@ export class UserController {
     } catch (err: any) {
       logger.error('UserController.searchUsers error:', err);
       res.status(500).json({ success: false, message: 'Lỗi server khi tìm kiếm người dùng' });
+    }
+  }
+
+  async updatePushToken(req: Request, res: Response) {
+    try {
+      const userId = req.user?.userId;
+      logger.info(`UserController.updatePushToken called - userId: ${userId}, body:`, req.body);
+      
+      if (!userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+
+      const { pushToken } = req.body;
+      if (!pushToken || typeof pushToken !== 'string') {
+        return res.status(400).json({ success: false, message: 'pushToken is required' });
+      }
+
+      const result = await User.findByIdAndUpdate(userId, { pushToken }, { new: true });
+      logger.info(`UserController.updatePushToken success - userId: ${userId}, pushToken saved: ${result?.pushToken ? 'yes' : 'no'}`);
+      
+      res.json({ success: true, message: 'Push token updated' });
+    } catch (err: any) {
+      logger.error('UserController.updatePushToken error:', err);
+      res.status(500).json({ success: false, message: 'Internal error' });
     }
   }
 }

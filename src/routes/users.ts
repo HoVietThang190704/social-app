@@ -512,6 +512,32 @@ userRoutes.patch('/me/addresses/:id/default', authenticate, (req, res) => {
   addressController.setDefaultAddress(req, res);
 });
 
+/**
+ * @swagger
+ * /api/users/me/push-token:
+ *   put:
+ *     summary: Cập nhật push notification token
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - pushToken
+ *             properties:
+ *               pushToken:
+ *                 type: string
+ *                 description: Push notification token từ Pushy
+ *     responses:
+ *       200:
+ *         description: Cập nhật thành công
+ */
+userRoutes.put('/me/push-token', authenticate, (req, res) => userController.updatePushToken(req, res));
+
 // Order endpoints removed for social-app fork (not applicable to social features)
 // Order and voucher endpoints removed (not relevant for social app fork)
 
