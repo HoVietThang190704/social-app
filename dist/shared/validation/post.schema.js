@@ -7,14 +7,20 @@ exports.createPostSchema = zod_1.z.object({
         content: zod_1.z.string().max(5000).optional(),
         images: zod_1.z.array(zod_1.z.string().url()).optional(),
         cloudinaryPublicIds: zod_1.z.array(zod_1.z.string()).optional(),
+        videos: zod_1.z.array(zod_1.z.string().url()).optional(),
+        videoPublicIds: zod_1.z.array(zod_1.z.string()).optional(),
         visibility: zod_1.z.enum(['public', 'private', 'friends']).optional()
-    }).refine(data => (data.content && data.content.trim().length > 0) || (data.images && data.images.length > 0) || (data.cloudinaryPublicIds && data.cloudinaryPublicIds.length > 0), { message: 'Cần nội dung hoặc ít nhất một ảnh' })
+    }).refine(data => (data.content && data.content.trim().length > 0)
+        || (data.images && data.images.length > 0)
+        || (data.videos && data.videos.length > 0), { message: 'Cần nội dung hoặc ít nhất một ảnh hoặc video' })
 });
 exports.updatePostSchema = zod_1.z.object({
     body: zod_1.z.object({
         content: zod_1.z.string().max(5000).optional(),
         images: zod_1.z.array(zod_1.z.string().url()).optional(),
         cloudinaryPublicIds: zod_1.z.array(zod_1.z.string()).optional(),
+        videos: zod_1.z.array(zod_1.z.string().url()).optional(),
+        videoPublicIds: zod_1.z.array(zod_1.z.string()).optional(),
         visibility: zod_1.z.enum(['public', 'private', 'friends']).optional()
     }).refine(data => Object.keys(data).length > 0, { message: 'Cần ít nhất một trường để cập nhật' })
 });
@@ -30,6 +36,8 @@ exports.postEntitySchema = zod_1.z.object({
     content: zod_1.z.string().min(1, 'Nội dung bài viết không được để trống').max(10000, 'Nội dung bài viết không được vượt quá 10,000 ký tự'),
     images: zod_1.z.array(zod_1.z.string().url()).optional(),
     cloudinaryPublicIds: zod_1.z.array(zod_1.z.string()).optional(),
+    videos: zod_1.z.array(zod_1.z.string().url()).optional(),
+    videoPublicIds: zod_1.z.array(zod_1.z.string()).optional(),
     likes: zod_1.z.array(zod_1.z.string()).optional(),
     likesCount: zod_1.z.number().nonnegative().optional(),
     commentsCount: zod_1.z.number().nonnegative().optional(),
@@ -44,10 +52,18 @@ exports.postEntitySchema = zod_1.z.object({
 }).superRefine((data, ctx) => {
     const imagesLen = (data.images ?? []).length;
     const idsLen = (data.cloudinaryPublicIds ?? []).length;
+    const videosLen = (data.videos ?? []).length;
+    const videoIdsLen = (data.videoPublicIds ?? []).length;
     if (imagesLen > 10) {
         ctx.addIssue({ code: zod_1.z.ZodIssueCode.custom, message: 'Số lượng hình ảnh không được vượt quá 10' });
     }
     if (imagesLen !== idsLen) {
         ctx.addIssue({ code: zod_1.z.ZodIssueCode.custom, message: 'Số lượng hình ảnh và public IDs không khớp' });
+    }
+    if (videosLen > 2) {
+        ctx.addIssue({ code: zod_1.z.ZodIssueCode.custom, message: 'Số lượng video không được vượt quá 2' });
+    }
+    if (videosLen !== videoIdsLen) {
+        ctx.addIssue({ code: zod_1.z.ZodIssueCode.custom, message: 'Số lượng video và public IDs không khớp' });
     }
 });

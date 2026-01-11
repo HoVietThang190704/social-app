@@ -1,4 +1,5 @@
-import { ProductResponseDTO } from '../product/Product.dto';
+// Product DTO not available in social-app; use a local placeholder
+type ProductResponseDTO = any;
 import { PostMapper, PostDTO } from '../post/Post.dto';
 import { UserMapper, UserResponseDto } from '../user/User.dto';
 // GlobalSearch usecase removed for social-app

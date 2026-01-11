@@ -28,6 +28,8 @@ const posts_1 = __importDefault(require("./routes/posts"));
 const comments_1 = __importDefault(require("./routes/comments"));
 const upload_1 = require("./routes/upload");
 const chat_1 = require("./routes/chat");
+const friends_1 = __importDefault(require("./routes/friends"));
+const notifications_1 = __importDefault(require("./routes/notifications"));
 const app = (0, express_1.default)();
 // Middleware
 // Middleware
@@ -103,6 +105,8 @@ app.use('/api/posts', posts_1.default);
 app.use('/api/comments', comments_1.default);
 app.use('/api/upload', upload_1.uploadRoutes);
 app.use('/api/chat', chat_1.chatRoutes);
+app.use('/api/friends', friends_1.default);
+app.use('/api/notifications', notifications_1.default);
 // Setup Swagger documentation TRƯỚC khi định nghĩa 404 handler
 (0, setup_1.setupSwagger)(app);
 // API documentation

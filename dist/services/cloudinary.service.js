@@ -75,6 +75,66 @@ class CloudinaryService {
             throw new Error('Failed to upload images');
         }
     }
+    static async uploadVideo(buffer, folder = 'posts/videos', publicId) {
+        try {
+            return new Promise((resolve, reject) => {
+                const uploadOptions = {
+                    folder: `fresh-food/${folder}`,
+                    resource_type: 'video',
+                    chunk_size: 10 * 1024 * 1024,
+                    eager: [
+                        {
+                            width: 720,
+                            height: 720,
+                            crop: 'limit',
+                            format: 'mp4',
+                            audio_codec: 'aac',
+                        }
+                    ]
+                };
+                if (publicId) {
+                    uploadOptions.public_id = publicId;
+                }
+                const uploadStream = cloudinary_1.v2.uploader.upload_stream(uploadOptions, (error, result) => {
+                    if (error) {
+                        logger_1.logger.error('Cloudinary video upload error:', error);
+                        reject(error);
+                    }
+                    else if (result) {
+                        resolve({
+                            url: result.secure_url,
+                            publicId: result.public_id,
+                            width: result.width || 0,
+                            height: result.height || 0,
+                            format: result.format,
+                            bytes: result.bytes,
+                        });
+                    }
+                    else {
+                        reject(new Error('Video upload failed - no result'));
+                    }
+                });
+                uploadStream.end(buffer);
+            });
+        }
+        catch (error) {
+            logger_1.logger.error('Error uploading video to Cloudinary:', error);
+            throw new Error('Failed to upload video');
+        }
+    }
+    static async uploadMultipleVideos(files, folder = 'posts/videos') {
+        try {
+            const uploadPromises = files.map(file => {
+                const randomId = `${folder}/${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+                return this.uploadVideo(file.buffer, folder, randomId);
+            });
+            return await Promise.all(uploadPromises);
+        }
+        catch (error) {
+            logger_1.logger.error('Error uploading multiple videos:', error);
+            throw new Error('Failed to upload videos');
+        }
+    }
     /**
      * Delete an image from Cloudinary
      */
@@ -86,6 +146,16 @@ class CloudinaryService {
         catch (error) {
             logger_1.logger.error('Error deleting from Cloudinary:', error);
             throw new Error('Failed to delete image');
+        }
+    }
+    static async deleteVideo(publicId) {
+        try {
+            await cloudinary_1.v2.uploader.destroy(publicId, { resource_type: 'video' });
+            logger_1.logger.info(`Deleted video: ${publicId}`);
+        }
+        catch (error) {
+            logger_1.logger.error('Error deleting video from Cloudinary:', error);
+            throw new Error('Failed to delete video');
         }
     }
     /**

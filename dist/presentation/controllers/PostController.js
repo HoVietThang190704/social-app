@@ -4,6 +4,7 @@ exports.PostController = void 0;
 const Post_dto_1 = require("../dto/post/Post.dto");
 const ShareInfo_dto_1 = require("../dto/share/ShareInfo.dto");
 const logger_1 = require("../../shared/utils/logger");
+const FriendService_1 = require("../../services/friend/FriendService");
 /**
  * Post Controller - HTTP Layer
  * Handles HTTP requests and delegates to use cases
@@ -64,6 +65,8 @@ class PostController {
                 content: data.content,
                 images: data.images,
                 cloudinaryPublicIds: data.cloudinaryPublicIds,
+                videos: data.videos,
+                videoPublicIds: data.videoPublicIds,
                 visibility: data.visibility
             });
             res.status(201).json({
@@ -190,8 +193,8 @@ class PostController {
                 });
                 return;
             }
-            // TODO: Get user's friends IDs from database
-            const friendIds = []; // Implement this
+            // Get user's friends IDs from database
+            const friendIds = await FriendService_1.friendService.getFriendIds(userId);
             const result = await this.getPostsFeedUseCase.execute(userId, friendIds, { page, limit });
             res.status(200).json({
                 success: true,

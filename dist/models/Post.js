@@ -62,6 +62,20 @@ const PostSchema = new mongoose_1.Schema({
         type: [String],
         default: []
     },
+    videos: {
+        type: [String],
+        default: [],
+        validate: {
+            validator: function (v) {
+                return v.length <= 2;
+            },
+            message: 'Số lượng video không được vượt quá 2'
+        }
+    },
+    videoPublicIds: {
+        type: [String],
+        default: []
+    },
     likes: [{
             type: mongoose_1.Schema.Types.ObjectId,
             ref: 'User'

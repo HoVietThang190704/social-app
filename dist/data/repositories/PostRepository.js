@@ -19,6 +19,8 @@ class PostRepository {
             content: model.content,
             images: model.images,
             cloudinaryPublicIds: model.cloudinaryPublicIds,
+            videos: model.videos || [],
+            videoPublicIds: model.videoPublicIds || [],
             likes: model.likes.map((id) => String(id)),
             likesCount: model.likesCount,
             commentsCount: model.commentsCount,
@@ -57,6 +59,9 @@ class PostRepository {
         }
         if (filters.hasImages !== undefined) {
             filter[filters.hasImages ? 'images.0' : 'images'] = filters.hasImages ? { $exists: true } : { $size: 0 };
+        }
+        if (filters.hasVideos !== undefined) {
+            filter[filters.hasVideos ? 'videos.0' : 'videos'] = filters.hasVideos ? { $exists: true } : { $size: 0 };
         }
         if (filters.isShared !== undefined) {
             if (filters.isShared) {
@@ -227,13 +232,12 @@ class PostRepository {
             const page = pagination?.page || 1;
             const limit = pagination?.limit || 20;
             const skip = (page - 1) * limit;
-            // Find posts that are either:
-            // 1. Public posts
-            // 2. User's own posts
-            // 3. Friends' posts with visibility 'public' or 'friends'
+            // Find posts that are:
+            // 1. User's own posts (all visibility types)
+            // 2. Friends' posts with visibility 'public' or 'friends'
+            // Note: No public posts from non-friends
             const filter = {
                 $or: [
-                    { visibility: 'public' },
                     { userId, visibility: { $in: ['public', 'friends', 'private'] } },
                     { userId: { $in: friendIds }, visibility: { $in: ['public', 'friends'] } }
                 ]

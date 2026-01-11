@@ -45,6 +45,8 @@ class PostEntity {
         this.likesCount = data.likesCount || 0;
         this.commentsCount = data.commentsCount || 0;
         this.sharesCount = data.sharesCount || 0;
+        this.videos = data.videos || [];
+        this.videoPublicIds = data.videoPublicIds || [];
         this.visibility = data.visibility || 'public';
         this.isEdited = data.isEdited || false;
         this.editedAt = data.editedAt;
@@ -53,8 +55,18 @@ class PostEntity {
         this.createdAt = data.createdAt;
         this.updatedAt = data.updatedAt;
     }
+    updateVideos(videos, videoPublicIds) {
+        this.videos = videos;
+        this.videoPublicIds = videoPublicIds;
+        this.isEdited = true;
+        this.editedAt = new Date();
+        this.updatedAt = new Date();
+    }
     isLikedBy(userId) {
         return this.likes.includes(userId);
+    }
+    hasVideos() {
+        return this.videos.length > 0;
     }
     toggleLike(userId) {
         const index = this.likes.indexOf(userId);
@@ -176,6 +188,8 @@ class PostEntity {
                 content: this.content,
                 images: this.images,
                 cloudinaryPublicIds: this.cloudinaryPublicIds,
+                videos: this.videos,
+                videoPublicIds: this.videoPublicIds,
                 likes: this.likes,
                 likesCount: this.likesCount,
                 commentsCount: this.commentsCount,

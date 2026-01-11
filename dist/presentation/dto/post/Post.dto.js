@@ -17,6 +17,7 @@ class PostMapper {
             user: populatedData?.user ?? entity.user,
             content: entity.content,
             images: entity.images,
+            videos: entity.videos,
             likesCount: entity.likesCount,
             commentsCount: entity.commentsCount,
             sharesCount: entity.sharesCount,
