@@ -43,6 +43,30 @@ const upload = (0, multer_1.default)({
         }
     }
 });
+const videoUpload = (0, multer_1.default)({
+    storage: multer_1.default.memoryStorage(),
+    limits: {
+        fileSize: 100 * 1024 * 1024,
+    },
+    fileFilter: (req, file, cb) => {
+        try {
+            const allowedTypes = /(mp4|mov|m4v|avi|mkv|wmv|flv|3gp)/;
+            const orig = String(file.originalname || '');
+            const ext = path_1.default.extname(orig).toLowerCase().replace(/^\./, '');
+            const mimetype = String(file.mimetype || '');
+            const isVideoMime = mimetype.startsWith('video/');
+            const isAllowedExt = allowedTypes.test(ext);
+            if (isVideoMime || isAllowedExt) {
+                return cb(null, true);
+            }
+            cb(new Error('Only video files are allowed!'));
+        }
+        catch (err) {
+            console.error('[upload] video fileFilter error', err);
+            cb(new Error('Only video files are allowed!'));
+        }
+    }
+});
 /**
  * @swagger
  * /api/upload/images:
@@ -111,6 +135,29 @@ router.post('/images', auth_middleware_1.authMiddleware, upload.array('images', 
         });
     }
 });
+router.post('/videos', auth_middleware_1.authMiddleware, videoUpload.array('videos', 2), (0, uploadValidate_1.requireFiles)('videos', 1, 2), async (req, res) => {
+    try {
+        const files = req.files;
+        console.info('[upload] video origin:', req.headers.origin || 'none', 'files:', files.map(f => f.originalname));
+        const uploadResults = await cloudinary_service_1.CloudinaryService.uploadMultipleVideos(files, 'posts/videos');
+        const urls = uploadResults.map(result => result.url);
+        const publicIds = uploadResults.map(result => result.publicId);
+        res.status(httpStatus_1.HttpStatus.OK).json({
+            success: true,
+            data: {
+                urls,
+                publicIds
+            }
+        });
+    }
+    catch (error) {
+        console.error('Error uploading videos:', error);
+        res.status(httpStatus_1.HttpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: error.message || 'Failed to upload videos'
+        });
+    }
+});
 /**
  * @swagger
  * /api/upload/images/{publicId}:
@@ -148,6 +195,23 @@ router.delete('/images/:publicId', auth_middleware_1.authMiddleware, async (req,
         res.status(httpStatus_1.HttpStatus.INTERNAL_SERVER_ERROR).json({
             success: false,
             message: error.message || 'Failed to delete image'
+        });
+    }
+});
+router.delete('/videos/:publicId', auth_middleware_1.authMiddleware, async (req, res) => {
+    try {
+        const decodedPublicId = decodeURIComponent(req.params.publicId);
+        await cloudinary_service_1.CloudinaryService.deleteVideo(decodedPublicId);
+        res.status(httpStatus_1.HttpStatus.OK).json({
+            success: true,
+            message: 'Video deleted successfully'
+        });
+    }
+    catch (error) {
+        console.error('Error deleting video:', error);
+        res.status(httpStatus_1.HttpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: error.message || 'Failed to delete video'
         });
     }
 });

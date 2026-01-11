@@ -39,6 +39,12 @@ class UpdatePostUseCase {
         if (dto.images && dto.cloudinaryPublicIds && dto.images.length !== dto.cloudinaryPublicIds.length) {
             throw new Error('Số lượng hình ảnh và public IDs không khớp');
         }
+        if (dto.videos && dto.videos.length > 2) {
+            throw new Error('Số lượng video không được vượt quá 2');
+        }
+        if (dto.videos && dto.videoPublicIds && dto.videos.length !== dto.videoPublicIds.length) {
+            throw new Error('Số lượng video và public IDs không khớp');
+        }
         // Prepare update data
         const updateData = {
             isEdited: true,
@@ -50,6 +56,10 @@ class UpdatePostUseCase {
         if (dto.images !== undefined) {
             updateData.images = dto.images;
             updateData.cloudinaryPublicIds = dto.cloudinaryPublicIds || [];
+        }
+        if (dto.videos !== undefined) {
+            updateData.videos = dto.videos;
+            updateData.videoPublicIds = dto.videoPublicIds || [];
         }
         if (dto.visibility !== undefined) {
             updateData.visibility = dto.visibility;

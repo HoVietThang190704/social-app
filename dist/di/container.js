@@ -32,12 +32,17 @@ const ListChatMessages_usecase_1 = require("../domain/usecases/chat/ListChatMess
 const SendChatMessage_usecase_1 = require("../domain/usecases/chat/SendChatMessage.usecase");
 const MarkThreadRead_usecase_1 = require("../domain/usecases/chat/MarkThreadRead.usecase");
 const ChatController_1 = require("../presentation/controllers/ChatController");
+const GroupRepository_1 = require("../data/repositories/GroupRepository");
+const CreateGroup_usecase_1 = require("../domain/usecases/chat/CreateGroup.usecase");
+const ListGroups_usecase_1 = require("../domain/usecases/chat/ListGroups.usecase");
+const GetGroup_usecase_1 = require("../domain/usecases/chat/GetGroup.usecase");
 // ==================== REPOSITORY INSTANCES ====================
 const userRepository = new UserRepository_1.UserRepository();
 const addressRepository = new AddressRepository_1.AddressRepository();
 const postRepository = new PostRepository_1.PostRepository();
 const chatSupportRepository = new ChatSupportRepository_1.ChatSupportRepository();
 const directMessageRepository = new DirectMessageRepository_1.DirectMessageRepository();
+const groupRepository = new GroupRepository_1.GroupRepository();
 // ==================== USE CASE INSTANCES ====================
 // User Use Cases
 const getUserProfileUseCase = new GetUserProfile_usecase_1.GetUserProfileUseCase(userRepository);
@@ -59,12 +64,16 @@ const listChatThreadsUseCase = new ListChatThreads_usecase_1.ListChatThreadsUseC
 const listChatMessagesUseCase = new ListChatMessages_usecase_1.ListChatMessagesUseCase(directMessageRepository);
 const sendChatMessageUseCase = new SendChatMessage_usecase_1.SendChatMessageUseCase(directMessageRepository);
 const markThreadReadUseCase = new MarkThreadRead_usecase_1.MarkThreadReadUseCase(directMessageRepository);
+// Groups
+const createGroupUseCase = new CreateGroup_usecase_1.CreateGroupUseCase(groupRepository);
+const listGroupsUseCase = new ListGroups_usecase_1.ListGroupsUseCase(groupRepository);
+const getGroupUseCase = new GetGroup_usecase_1.GetGroupUseCase(groupRepository);
 // ==================== CONTROLLER INSTANCES ====================
 exports.userController = new UserController_1.UserController(getUserProfileUseCase, updateUserProfileUseCase, resetPasswordUseCase, changePasswordUseCase, updateUserAvatarUseCase, lockUserUseCase, getUsersUseCase);
 // Admin user list use-case + controller
 exports.adminUserController = new AdminUserController_1.AdminUserController(getUsersUseCase, updateUserProfileUseCase);
 exports.addressController = new AddressController_1.AddressController(getUserAddressesUseCase, createAddressUseCase, updateAddressUseCase, deleteAddressUseCase, setDefaultAddressUseCase);
-exports.chatController = new ChatController_1.ChatController(listChatThreadsUseCase, listChatMessagesUseCase, sendChatMessageUseCase, markThreadReadUseCase);
+exports.chatController = new ChatController_1.ChatController(listChatThreadsUseCase, listChatMessagesUseCase, sendChatMessageUseCase, markThreadReadUseCase, createGroupUseCase, listGroupsUseCase, getGroupUseCase);
 // ==================== EXPORTS FOR REUSE ====================
 exports.repositories = {
     userRepository,
@@ -72,6 +81,7 @@ exports.repositories = {
     postRepository,
     chatSupportRepository,
     directMessageRepository,
+    groupRepository,
 };
 exports.useCases = {
     // User
@@ -93,4 +103,7 @@ exports.useCases = {
     listChatMessagesUseCase,
     sendChatMessageUseCase,
     markThreadReadUseCase,
+    createGroupUseCase,
+    listGroupsUseCase,
+    getGroupUseCase,
 };

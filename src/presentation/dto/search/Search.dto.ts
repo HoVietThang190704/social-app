@@ -1,8 +1,6 @@
-import { ProductResponseDTO } from '../product/Product.dto';
 import { PostMapper, PostDTO } from '../post/Post.dto';
 import { UserMapper, UserResponseDto } from '../user/User.dto';
-// GlobalSearch usecase removed for social-app
-type GlobalSearchResult = any;
+import { GlobalSearchResult } from '../../../domain/usecases/search/GlobalSearch.usecase';
 
 export interface SearchSectionDTO<T> {
   items: T[];
@@ -18,28 +16,28 @@ export interface SearchPostsSectionDTO extends SearchSectionDTO<PostDTO> {
 
 export interface SearchResponseDTO {
   query: string;
-  products: SearchSectionDTO<ProductResponseDTO>;
+  products: SearchSectionDTO<any>;
   posts: SearchPostsSectionDTO;
   users: SearchSectionDTO<UserResponseDto>;
 }
 
 export class SearchMapper {
-  static toDTO(result: GlobalSearchResult): SearchResponseDTO {
+  static toDTO(result: GlobalSearchResult, currentUserId?: string): SearchResponseDTO {
     return {
       query: result.query,
       products: {
-        items: result.products?.items ? result.products.items.map(() => ({} as ProductResponseDTO)) : [],
+        items: result.products?.items ?? [],
         total: result.products?.total ?? 0,
         limit: result.products?.limit ?? 0,
         hasMore: result.products?.hasMore ?? false
       },
       posts: {
-        items: PostMapper.toDTOs(result.posts.items),
+        items: PostMapper.toDTOs(result.posts.items, currentUserId),
         total: result.posts.total,
         limit: result.posts.limit,
         hasMore: result.posts.hasMore,
         page: result.posts.page,
-        totalPages: result.posts.totalPages
+        totalPages: result.posts.totalPages ?? 0
       },
       users: {
         items: result.users.items.map((user: any) => UserMapper.toResponseDto(user)),

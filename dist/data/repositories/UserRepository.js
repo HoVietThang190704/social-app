@@ -29,7 +29,8 @@ class UserRepository {
         return this.mapToEntity(savedUser);
     }
     async findById(id) {
-        const user = await User_1.User.findById(id);
+        // Populate friends so public profile can include friend previews
+        const user = await User_1.User.findById(id).populate({ path: 'friends', select: 'userName email avatar createdAt' });
         return user ? this.mapToEntity(user) : null;
     }
     async findByEmail(email) {
@@ -181,9 +182,20 @@ class UserRepository {
     mapToEntity(model) {
         const cloudinaryId = model.cloudinaryPublicId ?? model.cloudinaryPublicIds ?? undefined;
         const facebookID = model.facebookID ?? model.facebookId ?? undefined;
+        const addressWithFriends = model.address ?? {};
+        if (model.friends && Array.isArray(model.friends)) {
+            addressWithFriends.friends = model.friends.map((f) => ({
+                id: f._id?.toString(),
+                name: f.userName || f.email,
+                photo: f.avatar || null,
+            }));
+        }
+        if (model.friendsCount !== undefined) {
+            addressWithFriends.friendCount = model.friendsCount;
+        }
         return new User_entity_1.UserEntity(model.email, model.password ?? '', model.role, model.isVerified, model._id.toString(), model.userName, model.phone, model.avatar, cloudinaryId, facebookID, model.googleId, 
-        // address
-        model.address, 
+        // address (with optional friends preview)
+        addressWithFriends, 
         // dateOfBirth
         model.date_of_birth, model.createdAt, model.updatedAt, model.locked // Thêm trường locked vào entity
         );

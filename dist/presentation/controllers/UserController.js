@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const User_dto_1 = require("../dto/user/User.dto");
 const logger_1 = require("../../shared/utils/logger");
+const User_1 = require("../../models/users/User");
 class UserController {
     constructor(getUserProfileUseCase, updateUserProfileUseCase, resetPasswordUseCase, changePasswordUseCase, updateUserAvatarUseCase, lockUserUseCase, getUsersUseCase) {
         this.getUserProfileUseCase = getUserProfileUseCase;
@@ -161,6 +162,26 @@ class UserController {
         catch (err) {
             logger_1.logger.error('UserController.searchUsers error:', err);
             res.status(500).json({ success: false, message: 'Lỗi server khi tìm kiếm người dùng' });
+        }
+    }
+    async updatePushToken(req, res) {
+        try {
+            const userId = req.user?.userId;
+            logger_1.logger.info(`UserController.updatePushToken called - userId: ${userId}, body:`, req.body);
+            if (!userId) {
+                return res.status(401).json({ success: false, message: 'Unauthorized' });
+            }
+            const { pushToken } = req.body;
+            if (!pushToken || typeof pushToken !== 'string') {
+                return res.status(400).json({ success: false, message: 'pushToken is required' });
+            }
+            const result = await User_1.User.findByIdAndUpdate(userId, { pushToken }, { new: true });
+            logger_1.logger.info(`UserController.updatePushToken success - userId: ${userId}, pushToken saved: ${result?.pushToken ? 'yes' : 'no'}`);
+            res.json({ success: true, message: 'Push token updated' });
+        }
+        catch (err) {
+            logger_1.logger.error('UserController.updatePushToken error:', err);
+            res.status(500).json({ success: false, message: 'Internal error' });
         }
     }
 }

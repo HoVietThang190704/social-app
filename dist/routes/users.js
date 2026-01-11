@@ -482,6 +482,31 @@ exports.userRoutes.delete('/me/addresses/:id', auth_1.authenticate, (req, res) =
 exports.userRoutes.patch('/me/addresses/:id/default', auth_1.authenticate, (req, res) => {
     container_1.addressController.setDefaultAddress(req, res);
 });
+/**
+ * @swagger
+ * /api/users/me/push-token:
+ *   put:
+ *     summary: Cập nhật push notification token
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - pushToken
+ *             properties:
+ *               pushToken:
+ *                 type: string
+ *                 description: Push notification token từ Pushy
+ *     responses:
+ *       200:
+ *         description: Cập nhật thành công
+ */
+exports.userRoutes.put('/me/push-token', auth_1.authenticate, (req, res) => container_1.userController.updatePushToken(req, res));
 // Order endpoints removed for social-app fork (not applicable to social features)
 // Order and voucher endpoints removed (not relevant for social app fork)
 /**
