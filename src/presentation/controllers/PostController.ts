@@ -17,6 +17,7 @@ import { PostMapper, CreatePostRequestDTO, UpdatePostRequestDTO, SharePostReques
 import { ShareInfoMapper } from '../dto/share/ShareInfo.dto';
 import { PostFilters, PostSorting, PostPagination } from '../../domain/repositories/IPostRepository';
 import { logger } from '../../shared/utils/logger';
+import { friendService } from '../../services/friend/FriendService';
 
 /**
  * Post Controller - HTTP Layer
@@ -227,8 +228,8 @@ export class PostController {
         return;
       }
 
-      // TODO: Get user's friends IDs from database
-      const friendIds: string[] = []; // Implement this
+      // Get user's friends IDs from database
+      const friendIds = await friendService.getFriendIds(userId);
 
       const result = await this.getPostsFeedUseCase.execute(
         userId,
