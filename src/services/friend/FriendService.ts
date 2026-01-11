@@ -560,6 +560,27 @@ export class FriendService {
       totalPages: Math.ceil(total / limit)
     };
   }
+
+  /**
+   * Get all friend IDs for a user (returns array of string IDs)
+   * Used for filtering posts feed
+   */
+  async getFriendIds(userId: string): Promise<string[]> {
+    const userObjectId = this.toObjectId(userId);
+    if (!userObjectId) {
+      return [];
+    }
+
+    const user = await User.findById(userObjectId)
+      .select('friends')
+      .lean();
+
+    if (!user || !user.friends) {
+      return [];
+    }
+
+    return user.friends.map((f: any) => f.toString());
+  }
 }
 
 export const friendService = new FriendService();

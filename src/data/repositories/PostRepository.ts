@@ -271,13 +271,12 @@ export class PostRepository implements IPostRepository {
       const limit = pagination?.limit || 20;
       const skip = (page - 1) * limit;
 
-      // Find posts that are either:
-      // 1. Public posts
-      // 2. User's own posts
-      // 3. Friends' posts with visibility 'public' or 'friends'
+      // Find posts that are:
+      // 1. User's own posts (all visibility types)
+      // 2. Friends' posts with visibility 'public' or 'friends'
+      // Note: No public posts from non-friends
       const filter = {
         $or: [
-          { visibility: 'public' },
           { userId, visibility: { $in: ['public', 'friends', 'private'] } },
           { userId: { $in: friendIds }, visibility: { $in: ['public', 'friends'] } }
         ]
